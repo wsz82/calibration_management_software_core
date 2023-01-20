@@ -1,0 +1,19 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="MainApplicationTest" type="JUnit" factoryName="JUnit" nameIsGenerated="true">
+    <module name="spio2023.calibration.view_javafx" />
+    <extension name="coverage">
+      <pattern>
+        <option name="PATTERN" value="javafx.*" />
+        <option name="ENABLED" value="true" />
+      </pattern>
+    </extension>
+    <option name="PACKAGE_NAME" value="javafx" />
+    <option name="MAIN_CLASS_NAME" value="javafx.MainApplicationTest" />
+    <option name="METHOD_NAME" value="" />
+    <option name="TEST_OBJECT" value="class" />
+    <option name="VM_PARAMETERS" value="-ea --add-exports javafx.graphics/com.sun.javafx.application=ALL-UNNAMED" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
