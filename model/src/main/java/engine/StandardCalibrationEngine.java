@@ -4,25 +4,24 @@ import instruction.CalibrationState;
 import instruction.Instruction;
 import instruction.step.Results;
 import instruction.step.Step;
-import scope.Scope;
 
-import java.math.BigDecimal;
 import java.util.TreeMap;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 public class StandardCalibrationEngine implements CalibrationEngine {
     private Consumer<String> messageConsumer;
-    private Supplier<BigDecimal> inputSupplier;
+    private Supplier<Double> inputSupplier;
 
-    public StandardCalibrationEngine(Consumer<String> messageConsumer, Supplier<BigDecimal> inputSupplier) {
+    public StandardCalibrationEngine(Consumer<String> messageConsumer, Supplier<Double> inputSupplier) {
         this.messageConsumer = messageConsumer;
         this.inputSupplier = inputSupplier;
     }
 
     @Override
-    public TreeMap<Scope, Results> runCalibration(Instruction instruction) {
-        var calibrationState = new CalibrationState(instruction.referenceDevice());
+    public TreeMap<Double, Results> runCalibration(Instruction instruction) {
+        var calibrationState = new CalibrationState(instruction.referenceDevice(), instruction.checkedDevice(),
+                instruction.controlPoints());
         for (Step step : instruction.steps()) {
             step.setState(calibrationState);
             step.setMessageConsumer(messageConsumer);
@@ -30,14 +29,14 @@ public class StandardCalibrationEngine implements CalibrationEngine {
             step.show();
             step.execute();
         }
-        return calibrationState.scopeToResults();
+        return calibrationState.controlPointToResults();
     }
 
     public void setMessageConsumer(Consumer<String> messageConsumer) {
         this.messageConsumer = messageConsumer;
     }
 
-    public void setInputSupplier(Supplier<BigDecimal> inputSupplier) {
+    public void setInputSupplier(Supplier<Double> inputSupplier) {
         this.inputSupplier = inputSupplier;
     }
 

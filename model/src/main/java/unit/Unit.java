@@ -2,8 +2,8 @@ package unit;
 
 import java.util.Objects;
 
-public record Unit(String name, String sign) {
-    public static final Unit PERCENT = new Unit("Percent", "%");
+public record Unit(String name,
+                   String sign) {
 
     @Override
     public String toString() {

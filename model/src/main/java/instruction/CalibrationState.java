@@ -1,25 +1,29 @@
 package instruction;
 
-import device.ReferenceDevice;
+import device.Device;
 import instruction.step.Results;
-import scope.Scope;
-import scope.ScopesList;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
 
-public record CalibrationState(ReferenceDevice referenceDevice, TreeMap<Scope, Results> scopeToResults) {
+public record CalibrationState(Device referenceDevice, Device checkedDevice, List<Double> controlPoints,
+                               TreeMap<Double, Results> controlPointToResults) {
 
-    public CalibrationState(ReferenceDevice referenceDevice) {
-        this(referenceDevice, makeScopeToResults(referenceDevice.scopes()));
+    public CalibrationState(Device referenceDevice, Device checkedDevice, List<Double> controlPoints) {
+        this(referenceDevice, checkedDevice, controlPoints, makeControlPointToResults(controlPoints));
     }
 
-    private static TreeMap<Scope, Results> makeScopeToResults(ScopesList scopes) {
-        var unit = scopes.scopeUnit();
-        return scopes.list().stream()
-                .collect(Collectors.toMap(scope -> scope, scope -> new Results(unit), (results1, results2) -> {
-                    throw new IllegalStateException("Two equals scopes in the same list: " + scopes);
-                }, TreeMap::new));
+    private static TreeMap<Double, Results> makeControlPointToResults(List<Double> controlPoints) {
+        return controlPoints.stream()
+                .collect(Collectors.toMap(
+                        controlPoint -> controlPoint,
+                        controlPoint -> new Results(),
+                        (results1, results2) -> {
+                            throw new IllegalStateException("Two equal control point in the same list: " + Arrays.toString(controlPoints.toArray()));
+                        },
+                        TreeMap::new));
     }
 
 

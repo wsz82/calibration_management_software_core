@@ -1,15 +1,13 @@
 package instruction.step;
 
-import scope.Scope;
-
 public class InputStep extends Step {
     private final String message;
-    private final Scope scope;
+    private final double controlPoint;
     private final DeviceType deviceType;
 
-    public InputStep(String message, Scope scope, DeviceType deviceType) {
+    public InputStep(String message, double controlPoint, DeviceType deviceType) {
         this.message = message;
-        this.scope = scope;
+        this.controlPoint = controlPoint;
         this.deviceType = deviceType;
     }
 
@@ -21,15 +19,15 @@ public class InputStep extends Step {
     @Override
     public void execute() {
         var value = inputSupplier.get();
-        var results = state.scopeToResults().get(scope);
+        var results = state.controlPointToResults().get(controlPoint);
         if (deviceType == DeviceType.REFERENCED) {
-            results.referencedValue().setValue(value);
+            results.addReferenceValue(value);
         } else if (deviceType == DeviceType.CHECKED) {
-            results.checkedValue().setValue(value);
+            results.addCheckedValue(value);
         } else {
             throw new IllegalStateException("DeviceType not recognized: " + deviceType);
         }
-        messageConsumer.accept(value.toString());
+        messageConsumer.accept(String.valueOf(value));
     }
 
     @Override

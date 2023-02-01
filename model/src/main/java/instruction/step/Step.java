@@ -2,14 +2,13 @@ package instruction.step;
 
 import instruction.CalibrationState;
 
-import java.math.BigDecimal;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 public abstract class Step {
     protected CalibrationState state;
     protected Consumer<String> messageConsumer;
-    protected Supplier<BigDecimal> inputSupplier;
+    protected Supplier<Double> inputSupplier;
 
     public Step() {
     }
@@ -28,7 +27,7 @@ public abstract class Step {
         this.messageConsumer = messageConsumer;
     }
 
-    public void setInputSupplier(Supplier<BigDecimal> inputSupplier) {
+    public void setInputSupplier(Supplier<Double> inputSupplier) {
         this.inputSupplier = inputSupplier;
     }
 }

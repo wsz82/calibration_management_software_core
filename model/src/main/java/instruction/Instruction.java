@@ -1,10 +1,10 @@
 package instruction;
 
-import device.ReferenceDevice;
+import device.Device;
 import instruction.step.Step;
 
 import java.util.List;
 
-public record Instruction(ReferenceDevice referenceDevice, List<Step> steps) {
+public record Instruction(Device referenceDevice, Device checkedDevice, List<Double> controlPoints, List<Step> steps) {
 
 }
