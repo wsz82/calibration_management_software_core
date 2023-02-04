@@ -1,17 +1,13 @@
 package instruction.step;
 
 import instruction.CalibrationState;
-
-import java.util.function.Consumer;
-import java.util.function.Supplier;
+import instruction.StepInterface;
 
 public abstract class Step {
     protected CalibrationState state;
-    protected Consumer<String> messageConsumer;
-    protected Supplier<Double> inputSupplier;
+    protected StepInterface stepInterface;
 
-    public Step() {
-    }
+    public Step() {}
 
     public abstract void show();
 
@@ -23,11 +19,7 @@ public abstract class Step {
         this.state = state;
     }
 
-    public void setMessageConsumer(Consumer<String> messageConsumer) {
-        this.messageConsumer = messageConsumer;
-    }
-
-    public void setInputSupplier(Supplier<Double> inputSupplier) {
-        this.inputSupplier = inputSupplier;
+    public void setStepInterface(StepInterface stepInterface) {
+        this.stepInterface = stepInterface;
     }
 }

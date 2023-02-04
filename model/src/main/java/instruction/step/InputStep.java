@@ -13,12 +13,12 @@ public class InputStep extends Step {
 
     @Override
     public void show() {
-        messageConsumer.accept(message);
+        stepInterface.showMessage(message);
     }
 
     @Override
     public void execute() {
-        var value = inputSupplier.get();
+        var value = stepInterface.getInput();
         var results = state.controlPointToResults().get(controlPoint);
         if (deviceType == DeviceType.REFERENCED) {
             results.addReferenceValue(value);
@@ -27,7 +27,7 @@ public class InputStep extends Step {
         } else {
             throw new IllegalStateException("DeviceType not recognized: " + deviceType);
         }
-        messageConsumer.accept(String.valueOf(value));
+        stepInterface.showMessage(String.valueOf(value));
     }
 
     @Override

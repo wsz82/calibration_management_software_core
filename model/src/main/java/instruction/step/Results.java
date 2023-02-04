@@ -139,8 +139,4 @@ public final class Results {
     }
 
 
-    public enum FinalResult {
-        PASS,
-        FAIL
-    }
 }

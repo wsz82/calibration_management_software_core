@@ -17,7 +17,7 @@ public class CalculateResultsStep extends Step {
 
     @Override
     public void show() {
-        messageConsumer.accept(message);
+        stepInterface.showMessage(message);
     }
 
     @Override

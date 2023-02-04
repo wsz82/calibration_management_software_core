@@ -3,6 +3,7 @@ package engine;
 import device.AccuracyPattern;
 import device.Device;
 import instruction.Instruction;
+import instruction.StepInterface;
 import instruction.step.CalculateResultsStep;
 import instruction.step.DisplayStep;
 import instruction.step.InputStep;
@@ -87,22 +88,32 @@ public class CalibrationEngineTest {
                 -14.98, -16.7,
                 -14.99, -16.4,
                 -15.00, -16.3,
-                20.01, 20.8,
-                20.02, 20.6,
-                20.00, 20.9,
-                19.99, 20.4,
-                19.98, 20.5,
-                50.00, 49.5,
-                50.01, 48.5,
-                50.00, 49.3,
-                49.99, 48.1,
-                50.00, 49.9
+                    20.01, 20.8,
+                    20.02, 20.6,
+                    20.00, 20.9,
+                    19.99, 20.4,
+                    19.98, 20.5,
+                        50.00, 49.5,
+                        50.01, 48.5,
+                        50.00, 49.3,
+                        49.99, 48.1,
+                        50.00, 49.9
         );
         Collections.reverse(inputs);
         var nextInputs = new Stack<Double>();
         nextInputs.addAll(inputs);
 
-        var calibrationEngine = new StandardCalibrationEngine(System.out::println, nextInputs::pop);
+        var calibrationEngine = new StandardCalibrationEngine(new StepInterface() {
+            @Override
+            public void showMessage(String message) {
+                System.out.println(message);
+            }
+
+            @Override
+            public Double getInput() {
+                return nextInputs.pop();
+            }
+        });
         var scopeToResults = calibrationEngine.runCalibration(instruction);
 
         scopeToResults.forEach((scope, results) -> {

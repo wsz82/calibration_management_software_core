@@ -9,7 +9,7 @@ public class DisplayStep extends Step {
 
     @Override
     public void show() {
-        messageConsumer.accept(message);
+        stepInterface.showMessage(message);
     }
 
     @Override
