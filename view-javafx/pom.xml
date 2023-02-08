@@ -4,23 +4,26 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>spio2023.calibration_management_software</groupId>
     <artifactId>view_javafx</artifactId>
     <version>1.0-SNAPSHOT</version>
 
-    <name>spio2023.measurement.view_javafx</name>
+    <name>spio2023.calibration.view-javafx</name>
+
+    <parent>
+        <groupId>spio2023.calibration-management-software</groupId>
+        <artifactId>project-parent</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
 
     <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <java.version>17</java.version>
         <junit.version>5.8.2</junit.version>
     </properties>
 
     <dependencies>
         <dependency>
-            <groupId>spio2023.calibration_management_software</groupId>
+            <groupId>spio2023.calibration-management-software</groupId>
             <artifactId>model</artifactId>
-            <version>1.0</version>
+            <version>1.0-SNAPSHOT</version>
         </dependency>
 
         <dependency>
