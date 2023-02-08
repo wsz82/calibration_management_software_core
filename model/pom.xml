@@ -2,16 +2,19 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>spio2023.calibration_management_software</groupId>
     <artifactId>model</artifactId>
-    <version>1.0</version>
+    <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>spio2023.measurement.model</name>
+    <name>spio2023.calibration.model</name>
+
+    <parent>
+        <groupId>spio2023.calibration-management-software</groupId>
+        <artifactId>project-parent</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
 
     <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <java.version>17</java.version>
         <junit.version>4.13.2</junit.version>
     </properties>
 
@@ -25,7 +28,7 @@
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
-            <version>RELEASE</version>
+            <version>5.9.2</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
