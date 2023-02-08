@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Main" type="Application" factoryName="Application">
+  <configuration default="false" name="javafx_Main" type="Application" factoryName="Application">
     <option name="MAIN_CLASS_NAME" value="javafx.ApplicationStarter" />
     <module name="spio2023.calibration.view_javafx" />
     <method v="2">

@@ -1,6 +1,6 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="run_example_thermometer_calibration" type="JUnit" factoryName="JUnit">
-    <module name="spio2023.calibration.model" />
+  <configuration default="false" name="model" type="JUnit" factoryName="JUnit">
+    <module name="model" />
     <extension name="coverage">
       <pattern>
         <option name="PATTERN" value="engine.*" />
@@ -10,7 +10,7 @@
     <option name="PACKAGE_NAME" value="engine" />
     <option name="MAIN_CLASS_NAME" value="engine.CalibrationEngineTest" />
     <option name="METHOD_NAME" value="run_example_thermometer_calibration" />
-    <option name="TEST_OBJECT" value="method" />
+    <option name="TEST_OBJECT" value="class" />
     <method v="2">
       <option name="Make" enabled="true" />
     </method>
