@@ -8,11 +8,14 @@ import java.util.List;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
 
-public record CalibrationState(Device referenceDevice, Device checkedDevice, List<Double> controlPoints,
+public record CalibrationState(Device referenceDevice,
+                               Device checkedDevice,
+                               List<Double> controlPoints,
+                               Settings settings,
                                TreeMap<Double, Results> controlPointToResults) {
 
-    public CalibrationState(Device referenceDevice, Device checkedDevice, List<Double> controlPoints) {
-        this(referenceDevice, checkedDevice, controlPoints, makeControlPointToResults(controlPoints));
+    public CalibrationState(Device referenceDevice, Device checkedDevice, List<Double> controlPoints, Settings settings) {
+        this(referenceDevice, checkedDevice, controlPoints, settings, makeControlPointToResults(controlPoints));
     }
 
     private static TreeMap<Double, Results> makeControlPointToResults(List<Double> controlPoints) {

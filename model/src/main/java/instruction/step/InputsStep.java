@@ -1,11 +1,11 @@
 package instruction.step;
 
-public class InputStep extends Step {
+public class InputsStep extends Step {
     private final String message;
     private final double controlPoint;
     private final DeviceType deviceType;
 
-    public InputStep(String message, double controlPoint, DeviceType deviceType) {
+    public InputsStep(String message, double controlPoint, DeviceType deviceType) {
         this.message = message;
         this.controlPoint = controlPoint;
         this.deviceType = deviceType;
@@ -18,6 +18,13 @@ public class InputStep extends Step {
 
     @Override
     public void execute() {
+        var measurementsNumber = state.settings().measurementsNumber();
+        for (int number = 1; number <= measurementsNumber; number++) {
+            addInput();
+        }
+    }
+
+    private void addInput() {
         var value = stepInterface.getInput();
         var results = state.controlPointToResults().get(controlPoint);
         if (deviceType == DeviceType.REFERENCED) {
