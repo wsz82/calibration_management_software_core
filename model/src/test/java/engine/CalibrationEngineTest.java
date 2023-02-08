@@ -22,7 +22,7 @@ import static org.junit.Assert.assertEquals;
 public class CalibrationEngineTest {
 
     @Test
-    public void run_example_thermometer_calibration() {
+    public void thermometer_calibration() {
         var lowScope = new Scope(BigDecimal.valueOf(-30), BigDecimal.valueOf(-10));
         var mediumScope = new Scope(BigDecimal.valueOf(-10), BigDecimal.valueOf(10));
         var highScope = new Scope(BigDecimal.valueOf(10), BigDecimal.valueOf(30));

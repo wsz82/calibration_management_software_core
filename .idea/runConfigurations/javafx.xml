@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="MainApplicationTest" type="JUnit" factoryName="JUnit" nameIsGenerated="true">
+  <configuration default="false" name="javafx" type="JUnit" factoryName="JUnit">
     <module name="view-javafx" />
     <extension name="coverage">
       <pattern>
