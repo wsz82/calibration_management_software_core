@@ -1,4 +1,4 @@
-package instruction.step;
+package procedure.step;
 
 public class DisplayStep extends Step {
     private final String message;

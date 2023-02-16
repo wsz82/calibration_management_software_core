@@ -1,7 +1,7 @@
-package instruction;
+package procedure;
 
 import device.Device;
-import instruction.step.Results;
+import procedure.step.Results;
 
 import java.util.Arrays;
 import java.util.List;
@@ -12,13 +12,13 @@ public record CalibrationState(Device referenceDevice,
                                Device checkedDevice,
                                List<Double> controlPoints,
                                Settings settings,
-                               TreeMap<Double, Results> controlPointToResults) {
+                               TreeMap<Double, procedure.step.Results> controlPointToResults) {
 
     public CalibrationState(Device referenceDevice, Device checkedDevice, List<Double> controlPoints, Settings settings) {
         this(referenceDevice, checkedDevice, controlPoints, settings, makeControlPointToResults(controlPoints));
     }
 
-    private static TreeMap<Double, Results> makeControlPointToResults(List<Double> controlPoints) {
+    private static TreeMap<Double, procedure.step.Results> makeControlPointToResults(List<Double> controlPoints) {
         return controlPoints.stream()
                 .collect(Collectors.toMap(
                         controlPoint -> controlPoint,

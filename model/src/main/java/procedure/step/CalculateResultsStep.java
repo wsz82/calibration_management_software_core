@@ -1,4 +1,4 @@
-package instruction.step;
+package procedure.step;
 
 import scope.AccuracyScope;
 

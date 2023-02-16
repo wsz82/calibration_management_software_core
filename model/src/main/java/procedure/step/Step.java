@@ -1,7 +1,7 @@
-package instruction.step;
+package procedure.step;
 
-import instruction.CalibrationState;
-import instruction.StepInterface;
+import procedure.CalibrationState;
+import procedure.StepInterface;
 
 public abstract class Step {
     protected CalibrationState state;

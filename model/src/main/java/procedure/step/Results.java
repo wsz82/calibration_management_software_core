@@ -1,4 +1,4 @@
-package instruction.step;
+package procedure.step;
 
 import java.util.ArrayList;
 import java.util.Collections;

@@ -1,4 +1,4 @@
-package instruction;
+package procedure;
 
 public interface StepInterface {
 

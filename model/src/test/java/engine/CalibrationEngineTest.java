@@ -2,13 +2,13 @@ package engine;
 
 import device.AccuracyPattern;
 import device.Device;
-import instruction.Instruction;
-import instruction.Settings;
-import instruction.StepInterface;
-import instruction.step.CalculateResultsStep;
-import instruction.step.DisplayStep;
-import instruction.step.InputsStep;
 import org.junit.Test;
+import procedure.Procedure;
+import procedure.Settings;
+import procedure.StepInterface;
+import procedure.step.CalculateResultsStep;
+import procedure.step.DisplayStep;
+import procedure.step.InputsStep;
 import scope.AccuracyScope;
 import scope.ScopesList;
 import unit.Unit;
@@ -41,7 +41,7 @@ public class CalibrationEngineTest {
         var referenceDevice = new Device("P755", -2, new AccuracyPattern(0.005, 4), referencedScopesList);
 
         var controlPoints = Arrays.asList(controlPoint1, controlPoint2, controlPoint3);
-        var instruction = new Instruction(referenceDevice, checkedDevice, controlPoints, Arrays.asList(
+        var instruction = new Procedure(referenceDevice, checkedDevice, controlPoints, Arrays.asList(
                 new DisplayStep("Kalibracja termometru rtęciowego"),
                 new DisplayStep("Włącz komorę klimatyczną i ustaw temperaturę na -15"),
                 new DisplayStep("Zmierz naprzemiennie temperaturę termometrem wzorcowym oraz kalibrowanym"),

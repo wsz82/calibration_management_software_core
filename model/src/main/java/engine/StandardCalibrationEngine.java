@@ -1,11 +1,11 @@
 package engine;
 
-import instruction.CalibrationState;
-import instruction.Instruction;
-import instruction.Settings;
-import instruction.StepInterface;
-import instruction.step.Results;
-import instruction.step.Step;
+import procedure.CalibrationState;
+import procedure.Procedure;
+import procedure.Settings;
+import procedure.StepInterface;
+import procedure.step.Results;
+import procedure.step.Step;
 
 import java.util.TreeMap;
 
@@ -17,10 +17,10 @@ public class StandardCalibrationEngine implements CalibrationEngine {
     }
 
     @Override
-    public TreeMap<Double, Results> runCalibration(Instruction instruction, Settings settings) {
-        var calibrationState = new CalibrationState(instruction.referenceDevice(), instruction.checkedDevice(),
-                instruction.controlPoints(), settings);
-        for (Step step : instruction.steps()) {
+    public TreeMap<Double, Results> runCalibration(Procedure procedure, Settings settings) {
+        var calibrationState = new CalibrationState(procedure.referenceDevice(), procedure.checkedDevice(),
+                procedure.controlPoints(), settings);
+        for (Step step : procedure.steps()) {
             step.setState(calibrationState);
             step.setStepInterface(stepInterface);
             step.show();

@@ -1,4 +1,4 @@
-package instruction.step;
+package procedure.step;
 
 public class InputsStep extends Step {
     private final String message;
