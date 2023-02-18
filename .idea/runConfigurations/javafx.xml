@@ -1,6 +1,6 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="javafx" type="JUnit" factoryName="JUnit">
-    <module name="view-javafx" />
+    <module name="view_javafx" />
     <extension name="coverage">
       <pattern>
         <option name="PATTERN" value="javafx.*" />
