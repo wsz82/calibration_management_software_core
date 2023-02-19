@@ -1,13 +1,13 @@
 package engine;
 
-import instruction.Instruction;
-import instruction.step.Results;
-import scope.Scope;
+import procedure.Procedure;
+import procedure.Settings;
+import procedure.step.Results;
 
 import java.util.TreeMap;
 
 public interface CalibrationEngine {
 
-    TreeMap<Scope, Results> runCalibration(Instruction instruction);
+    TreeMap<Double, Results> runCalibration(Procedure procedure, Settings settings);
 
 }

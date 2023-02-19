@@ -1,8 +1,8 @@
 module model {
     exports device;
     exports engine;
-    exports instruction;
-    exports instruction.step;
+    exports procedure;
+    exports procedure.step;
     exports scope;
     exports unit;
 }

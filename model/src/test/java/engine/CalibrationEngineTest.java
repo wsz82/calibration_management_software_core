@@ -1,90 +1,111 @@
 package engine;
 
+import device.AccuracyPattern;
 import device.Device;
-import device.ReferenceDevice;
-import instruction.Instruction;
-import instruction.step.CalculateDeviationStep;
-import instruction.step.DisplayStep;
-import instruction.step.InputStep;
 import org.junit.Test;
-import scope.Scope;
+import procedure.Procedure;
+import procedure.Settings;
+import procedure.StepInterface;
+import procedure.step.CalculateResultsStep;
+import procedure.step.DisplayStep;
+import procedure.step.InputsStep;
+import scope.AccuracyScope;
 import scope.ScopesList;
 import unit.Unit;
 
-import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Stack;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class CalibrationEngineTest {
 
     @Test
     public void thermometer_calibration() {
-        var lowScope = new Scope(BigDecimal.valueOf(-30), BigDecimal.valueOf(-10));
-        var mediumScope = new Scope(BigDecimal.valueOf(-10), BigDecimal.valueOf(10));
-        var highScope = new Scope(BigDecimal.valueOf(10), BigDecimal.valueOf(30));
+        var celsius = new Unit("Celsius", "°C");
 
-        var device = new Device("RTĘCIOWY_1");
-        var tolerance = BigDecimal.valueOf(5);
-        var celsiusUnit = new Unit("Celsius", "°C");
-        var scopesList = new ScopesList(celsiusUnit, List.of(lowScope, mediumScope, highScope));
-        var referenceDevice = new ReferenceDevice(device, tolerance, scopesList);
+        double controlPoint1 = -15;
+        double controlPoint2 = 20;
+        double controlPoint3 = 50;
 
-        var instruction = new Instruction(referenceDevice, Arrays.asList(
+        var scope1 = new AccuracyScope(-20, 0, 2);
+        var scope2 = new AccuracyScope(0, 40, 1);
+        var scope3 = new AccuracyScope(40, 60, 2);
+        var checkedScopesList = new ScopesList(celsius, List.of(scope1, scope2, scope3));
+        var checkedDevice = new Device("BC06", -1, new AccuracyPattern(0.005, 4), checkedScopesList);
+
+        var referencedScope1 = new AccuracyScope(-50, 199.99, 0.03);
+        var referencedScopesList = new ScopesList(celsius, List.of(referencedScope1));
+        var referenceDevice = new Device("P755", -2, new AccuracyPattern(0.005, 4), referencedScopesList);
+
+        var controlPoints = Arrays.asList(controlPoint1, controlPoint2, controlPoint3);
+        var instruction = new Procedure(referenceDevice, checkedDevice, controlPoints, Arrays.asList(
                 new DisplayStep("Kalibracja termometru rtęciowego"),
-                new DisplayStep("Włącz lodówkę i ustaw temperaturę na -20"),
-                new InputStep("Zmierz temperaturę termometrem wzorcowym: ",
-                        lowScope, InputStep.DeviceType.REFERENCED),
-                new InputStep("Zmierz temperaturę termometrem sprawdzanym: ",
-                        lowScope, InputStep.DeviceType.CHECKED),
-                new CalculateDeviationStep("", lowScope),
-                new DisplayStep("Ustaw temperaturę lodówki na 0"),
-                new InputStep("Zmierz temperaturę termometrem wzorcowym: ",
-                        mediumScope, InputStep.DeviceType.REFERENCED),
-                new InputStep("Zmierz temperaturę termometrem sprawdzanym: ",
-                        mediumScope, InputStep.DeviceType.CHECKED),
-                new CalculateDeviationStep("", mediumScope),
-                new DisplayStep("Włącz piec i ustaw temperaturę na 20"),
-                new InputStep("Zmierz temperaturę termometrem wzorcowym: ",
-                        highScope, InputStep.DeviceType.REFERENCED),
-                new InputStep("Zmierz temperaturę termometrem sprawdzanym: ",
-                        highScope, InputStep.DeviceType.CHECKED),
-                new CalculateDeviationStep("", highScope),
+                new DisplayStep("Włącz komorę klimatyczną i ustaw temperaturę na -15"),
+                new DisplayStep("Zmierz naprzemiennie temperaturę termometrem wzorcowym oraz kalibrowanym"),
+                new InputsStep("Pomiary wzorcowe: ", controlPoint1, InputsStep.DeviceType.REFERENCED),
+                new InputsStep("Pomiary sprawdzane: ", controlPoint1, InputsStep.DeviceType.CHECKED),
+                new CalculateResultsStep("Wykonanie obliczeń dla punktu -15 °C", scope1, controlPoint1),
+                new DisplayStep("Ustaw temperaturę na 20"),
+                new InputsStep("Pomiary wzorcowe: ", controlPoint2, InputsStep.DeviceType.REFERENCED),
+                new InputsStep("Pomiary sprawdzane: ", controlPoint2, InputsStep.DeviceType.CHECKED),
+                new CalculateResultsStep("Wykonanie obliczeń dla punktu 20 °C", scope2, controlPoint2),
+                new DisplayStep("Ustaw temperaturę na 50"),
+                new InputsStep("Pomiary wzorcowe: ", controlPoint3, InputsStep.DeviceType.REFERENCED),
+                new InputsStep("Pomiary sprawdzane: ", controlPoint3, InputsStep.DeviceType.CHECKED),
+                new CalculateResultsStep("Wykonanie obliczeń dla punktu 50 °C", scope3, controlPoint3),
                 new DisplayStep("Kalibracja zakończona")
         ));
 
-        var nextInputs = new Stack<BigDecimal>();
-        var lowReferencedValue = BigDecimal.valueOf(-20);
-        var lowCheckedValue = BigDecimal.valueOf(-21);
-        var mediumReferencedValue = BigDecimal.valueOf(0.1);
-        var mediumCheckedValue = BigDecimal.valueOf(0.11);
-        var highReferencedValue = BigDecimal.valueOf(19.97);
-        var highCheckedValue = BigDecimal.valueOf(22);
         var inputs = Arrays.asList(
-                lowReferencedValue, lowCheckedValue,
-                mediumReferencedValue, mediumCheckedValue,
-                highReferencedValue, highCheckedValue
+                -15.01, -16.4,
+                -15.00, -16.1,
+                -14.98, -16.7,
+                -14.99, -16.4,
+                -15.00, -16.3,
+                    20.01, 20.8,
+                    20.02, 20.6,
+                    20.00, 20.9,
+                    19.99, 20.4,
+                    19.98, 20.5,
+                        50.00, 49.5,
+                        50.01, 48.5,
+                        50.00, 49.3,
+                        49.99, 48.1,
+                        50.00, 49.9
         );
         Collections.reverse(inputs);
+        var nextInputs = new Stack<Double>();
         nextInputs.addAll(inputs);
 
-        var calibrationEngine = new StandardCalibrationEngine(System.out::println, nextInputs::pop);
-        var scopeToResults = calibrationEngine.runCalibration(instruction);
+        var stepInterface = new StepInterface() {
+            @Override
+            public void showMessage(String message) {
+                System.out.println(message);
+            }
+
+            @Override
+            public Double getInput() {
+                return nextInputs.pop();
+            }
+        };
+        var calibrationEngine = new StandardCalibrationEngine(stepInterface);
+        var settings = new Settings(5);
+        var scopeToResults = calibrationEngine.runCalibration(instruction, settings);
 
         scopeToResults.forEach((scope, results) -> {
             System.out.println("---");
             System.out.println(scope);
             System.out.println(results);
         });
-        var lowScopeResult = scopeToResults.get(lowScope).deviationPercentResult().getValue();
-        assertEquals(new BigDecimal("5.0000"), lowScopeResult);
-        var mediumScopeResult = scopeToResults.get(mediumScope).deviationPercentResult().getValue();
-        assertEquals(new BigDecimal("10.0000"), mediumScopeResult);
-        var highScopeResult = scopeToResults.get(highScope).deviationPercentResult().getValue();
-        assertEquals(new BigDecimal("10.1600"), highScopeResult);
+        var results1 = scopeToResults.get(controlPoint1);
+        var results2 = scopeToResults.get(controlPoint2);
+        var results3 = scopeToResults.get(controlPoint3);
+        assertTrue(results1.isPass());
+        assertTrue(results2.isPass());
+        assertTrue(results3.isPass());
     }
 
 

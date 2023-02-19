@@ -1,4 +1,4 @@
-package instruction.step;
+package procedure.step;
 
 public class DisplayStep extends Step {
     private final String message;
@@ -9,7 +9,7 @@ public class DisplayStep extends Step {
 
     @Override
     public void show() {
-        messageConsumer.accept(message);
+        stepInterface.showMessage(message);
     }
 
     @Override
