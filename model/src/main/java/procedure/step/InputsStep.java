@@ -26,7 +26,7 @@ public class InputsStep extends Step {
 
     private void addInput() {
         var value = stepInterface.getInput();
-        var results = state.controlPointToResults().get(controlPoint);
+        var results = state.controlPointToInputs().get(controlPoint);
         if (deviceType == DeviceType.REFERENCED) {
             results.addReferenceValue(value);
         } else if (deviceType == DeviceType.CHECKED) {

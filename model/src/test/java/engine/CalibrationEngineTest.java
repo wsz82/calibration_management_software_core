@@ -60,21 +60,12 @@ public class CalibrationEngineTest {
         ));
 
         var inputs = Arrays.asList(
-                -15.01, -16.4,
-                -15.00, -16.1,
-                -14.98, -16.7,
-                -14.99, -16.4,
-                -15.00, -16.3,
-                    20.01, 20.8,
-                    20.02, 20.6,
-                    20.00, 20.9,
-                    19.99, 20.4,
-                    19.98, 20.5,
-                        50.00, 49.5,
-                        50.01, 48.5,
-                        50.00, 49.3,
-                        49.99, 48.1,
-                        50.00, 49.9
+                -15.01, -15.00, -14.98, -14.99, -15.00,
+                -16.4, -16.1, -16.7, -16.4, -16.3,
+                    20.01, 20.02, 20.00, 19.99, 19.98,
+                    20.8, 20.6, 20.9, 20.4, 20.5,
+                        50.00, 50.01, 50.00, 49.99, 50.00,
+                        49.5, 48.5, 49.3, 48.1, 49.9
         );
         Collections.reverse(inputs);
         var nextInputs = new Stack<Double>();
@@ -91,21 +82,17 @@ public class CalibrationEngineTest {
                 return nextInputs.pop();
             }
         };
-        var calibrationEngine = new StandardCalibrationEngine(stepInterface);
+        var calibrationEngine = new DefaultCalibrationEngine(stepInterface);
         var settings = new Settings(5);
-        var scopeToResults = calibrationEngine.runCalibration(instruction, settings);
+        var output = calibrationEngine.runCalibration(instruction, settings);
 
-        scopeToResults.forEach((scope, results) -> {
+        var controlPointToResults = output.controlPointToResults();
+        controlPointToResults.forEach((scope, results) -> {
             System.out.println("---");
             System.out.println(scope);
             System.out.println(results);
         });
-        var results1 = scopeToResults.get(controlPoint1);
-        var results2 = scopeToResults.get(controlPoint2);
-        var results3 = scopeToResults.get(controlPoint3);
-        assertTrue(results1.isPass());
-        assertTrue(results2.isPass());
-        assertTrue(results3.isPass());
+        assertTrue(output.isPass());
     }
 
 
