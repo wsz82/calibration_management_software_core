@@ -1,32 +1,35 @@
 package procedure;
 
 import device.Device;
-import procedure.step.Results;
+import procedure.results.Inputs;
+import procedure.results.Results;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.TreeMap;
-import java.util.stream.Collectors;
+import java.util.*;
 
 public record CalibrationState(Device referenceDevice,
                                Device checkedDevice,
                                List<Double> controlPoints,
                                Settings settings,
-                               TreeMap<Double, procedure.step.Results> controlPointToResults) {
+                               Map<Double, Inputs> controlPointToInputs,
+                               Map<Double, Results> controlPointToResults) {
 
     public CalibrationState(Device referenceDevice, Device checkedDevice, List<Double> controlPoints, Settings settings) {
-        this(referenceDevice, checkedDevice, controlPoints, settings, makeControlPointToResults(controlPoints));
+        this(referenceDevice, checkedDevice, controlPoints, settings,
+                makeControlPointToInputs(controlPoints),
+                makeControlPointToResults(controlPoints)
+        );
     }
 
-    private static TreeMap<Double, procedure.step.Results> makeControlPointToResults(List<Double> controlPoints) {
-        return controlPoints.stream()
-                .collect(Collectors.toMap(
-                        controlPoint -> controlPoint,
-                        controlPoint -> new Results(),
-                        (results1, results2) -> {
-                            throw new IllegalStateException("Two equal control point in the same list: " + Arrays.toString(controlPoints.toArray()));
-                        },
-                        TreeMap::new));
+    private static Map<Double, Inputs> makeControlPointToInputs(List<Double> controlPoints) {
+        var map = new HashMap<Double, Inputs>();
+        controlPoints.forEach(val -> map.put(val, new Inputs(new ArrayList<>(), new ArrayList<>())));
+        return map;
+    }
+
+    private static Map<Double, Results> makeControlPointToResults(List<Double> controlPoints) {
+        var map = new TreeMap<Double, Results>();
+        controlPoints.forEach(val -> map.put(val, null));
+        return map;
     }
 
 

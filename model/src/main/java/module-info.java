@@ -5,4 +5,5 @@ module model {
     exports procedure.step;
     exports scope;
     exports unit;
+    exports procedure.results;
 }

@@ -2,12 +2,10 @@ package engine;
 
 import procedure.Procedure;
 import procedure.Settings;
-import procedure.step.Results;
-
-import java.util.TreeMap;
+import procedure.results.CalibrationOutput;
 
 public interface CalibrationEngine {
 
-    TreeMap<Double, Results> runCalibration(Procedure procedure, Settings settings);
+    CalibrationOutput runCalibration(Procedure procedure, Settings settings);
 
 }

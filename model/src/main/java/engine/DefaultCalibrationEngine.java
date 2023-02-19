@@ -4,20 +4,18 @@ import procedure.CalibrationState;
 import procedure.Procedure;
 import procedure.Settings;
 import procedure.StepInterface;
-import procedure.step.Results;
+import procedure.results.CalibrationOutput;
 import procedure.step.Step;
 
-import java.util.TreeMap;
-
-public class StandardCalibrationEngine implements CalibrationEngine {
+public class DefaultCalibrationEngine implements CalibrationEngine {
     private final StepInterface stepInterface;
 
-    public StandardCalibrationEngine(StepInterface stepInterface) {
+    public DefaultCalibrationEngine(StepInterface stepInterface) {
         this.stepInterface = stepInterface;
     }
 
     @Override
-    public TreeMap<Double, Results> runCalibration(Procedure procedure, Settings settings) {
+    public CalibrationOutput runCalibration(Procedure procedure, Settings settings) {
         var calibrationState = new CalibrationState(procedure.referenceDevice(), procedure.checkedDevice(),
                 procedure.controlPoints(), settings);
         for (Step step : procedure.steps()) {
@@ -26,7 +24,8 @@ public class StandardCalibrationEngine implements CalibrationEngine {
             step.show();
             step.execute();
         }
-        return calibrationState.controlPointToResults();
+        var controlPointToResults = calibrationState.controlPointToResults();
+        return new CalibrationOutput(controlPointToResults);
     }
 
 
