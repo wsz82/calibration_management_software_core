@@ -17,6 +17,8 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Stack;
+import java.util.stream.Collectors;
+import java.util.stream.DoubleStream;
 
 import static org.junit.Assert.assertTrue;
 
@@ -45,31 +47,28 @@ public class CalibrationEngineTest {
                 new DisplayStep("Kalibracja termometru rtęciowego"),
                 new DisplayStep("Włącz komorę klimatyczną i ustaw temperaturę na -15"),
                 new DisplayStep("Zmierz naprzemiennie temperaturę termometrem wzorcowym oraz kalibrowanym"),
-                new InputsStep("Pomiary wzorcowe: ", controlPoint1, InputsStep.DeviceType.REFERENCED),
-                new InputsStep("Pomiary sprawdzane: ", controlPoint1, InputsStep.DeviceType.CHECKED),
+                new InputsStep("Wprowadź pomiary: ", controlPoint1),
                 new CalculateResultsStep("Wykonanie obliczeń dla punktu -15 °C", scope1, controlPoint1),
                 new DisplayStep("Ustaw temperaturę na 20"),
-                new InputsStep("Pomiary wzorcowe: ", controlPoint2, InputsStep.DeviceType.REFERENCED),
-                new InputsStep("Pomiary sprawdzane: ", controlPoint2, InputsStep.DeviceType.CHECKED),
+                new InputsStep("Wprowadź pomiary: ", controlPoint2),
                 new CalculateResultsStep("Wykonanie obliczeń dla punktu 20 °C", scope2, controlPoint2),
                 new DisplayStep("Ustaw temperaturę na 50"),
-                new InputsStep("Pomiary wzorcowe: ", controlPoint3, InputsStep.DeviceType.REFERENCED),
-                new InputsStep("Pomiary sprawdzane: ", controlPoint3, InputsStep.DeviceType.CHECKED),
+                new InputsStep("Wprowadź pomiary: ", controlPoint3),
                 new CalculateResultsStep("Wykonanie obliczeń dla punktu 50 °C", scope3, controlPoint3),
                 new DisplayStep("Kalibracja zakończona")
         ));
 
-        var inputs = Arrays.asList(
+        var referencedInputs = makeInputs(
                 -15.01, -15.00, -14.98, -14.99, -15.00,
-                -16.4, -16.1, -16.7, -16.4, -16.3,
-                    20.01, 20.02, 20.00, 19.99, 19.98,
-                    20.8, 20.6, 20.9, 20.4, 20.5,
-                        50.00, 50.01, 50.00, 49.99, 50.00,
-                        49.5, 48.5, 49.3, 48.1, 49.9
+                20.01, 20.02, 20.00, 19.99, 19.98,
+                50.00, 50.01, 50.00, 49.99, 50.00
         );
-        Collections.reverse(inputs);
-        var nextInputs = new Stack<Double>();
-        nextInputs.addAll(inputs);
+
+        var checkedInputs = makeInputs(
+                -16.4, -16.1, -16.7, -16.4, -16.3,
+                20.8, 20.6, 20.9, 20.4, 20.5,
+                49.5, 48.5, 49.3, 48.1, 49.9
+        );
 
         var stepInterface = new StepInterface() {
             @Override
@@ -78,8 +77,13 @@ public class CalibrationEngineTest {
             }
 
             @Override
-            public Double getInput() {
-                return nextInputs.pop();
+            public double getReferencedInput() {
+                return referencedInputs.pop();
+            }
+
+            @Override
+            public double getCheckedInput() {
+                return checkedInputs.pop();
             }
         };
         var calibrationEngine = new DefaultCalibrationEngine(stepInterface);
@@ -93,6 +97,16 @@ public class CalibrationEngineTest {
             System.out.println(results);
         });
         assertTrue(output.isPass());
+    }
+
+    private Stack<Double> makeInputs(double... inputs) {
+        List<Double> inputsList = DoubleStream.of(inputs)
+                .boxed()
+                .collect(Collectors.toList());
+        Collections.reverse(inputsList);
+        var nextInputs = new Stack<Double>();
+        nextInputs.addAll(inputsList);
+        return nextInputs;
     }
 
 

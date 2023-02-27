@@ -3,12 +3,10 @@ package procedure.step;
 public class InputsStep extends Step {
     private final String message;
     private final double controlPoint;
-    private final DeviceType deviceType;
 
-    public InputsStep(String message, double controlPoint, DeviceType deviceType) {
+    public InputsStep(String message, double controlPoint) {
         this.message = message;
         this.controlPoint = controlPoint;
-        this.deviceType = deviceType;
     }
 
     @Override
@@ -25,26 +23,17 @@ public class InputsStep extends Step {
     }
 
     private void addInput() {
-        var value = stepInterface.getInput();
+        var referencedInput = stepInterface.getReferencedInput();
+        var checkedInput = stepInterface.getCheckedInput();
         var results = state.controlPointToInputs().get(controlPoint);
-        if (deviceType == DeviceType.REFERENCED) {
-            results.addReferenceValue(value);
-        } else if (deviceType == DeviceType.CHECKED) {
-            results.addCheckedValue(value);
-        } else {
-            throw new IllegalStateException("DeviceType not recognized: " + deviceType);
-        }
-        stepInterface.showMessage(String.valueOf(value));
+        results.addReferenceValue(referencedInput);
+        results.addCheckedValue(checkedInput);
+        stepInterface.showMessage(referencedInput + "; " + checkedInput);
     }
 
     @Override
     public StepType getStepType() {
         return StepType.INPUT;
-    }
-
-    public enum DeviceType {
-        REFERENCED,
-        CHECKED
     }
 
 
