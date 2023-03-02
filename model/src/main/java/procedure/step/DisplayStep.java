@@ -1,11 +1,12 @@
 package procedure.step;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+@Getter
+@AllArgsConstructor
 public class DisplayStep extends Step {
     private final String message;
-
-    public DisplayStep(String message) {
-        this.message = message;
-    }
 
     @Override
     public void show() {
@@ -13,14 +14,11 @@ public class DisplayStep extends Step {
     }
 
     @Override
-    public void execute() {
-
-    }
+    public void execute() {}
 
     @Override
     public StepType getStepType() {
         return StepType.DISPLAY;
     }
-
 
 }

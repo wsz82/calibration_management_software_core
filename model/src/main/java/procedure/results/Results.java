@@ -1,9 +1,12 @@
 package procedure.results;
 
+import unit.Prefix;
+
 public record Results(
+        Prefix prefix,
         Inputs inputs,
-        double meanReferencedValue,
-        double meanCheckedValue,
+        double meanReferenceValue,
+        double meanTestValue,
         double error,
         double uncertaintyA,
         double uncertaintyB,

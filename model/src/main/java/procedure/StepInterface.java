@@ -4,8 +4,8 @@ public interface StepInterface {
 
     void showMessage(String message);
 
-    double getReferencedInput();
+    Double[] getReferencedInput();
 
-    double getCheckedInput();
+    Double[] getCheckedInput();
 
 }

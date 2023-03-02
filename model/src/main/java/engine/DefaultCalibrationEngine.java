@@ -1,6 +1,6 @@
 package engine;
 
-import procedure.CalibrationState;
+import procedure.Calibration;
 import procedure.Procedure;
 import procedure.Settings;
 import procedure.StepInterface;
@@ -16,15 +16,14 @@ public class DefaultCalibrationEngine implements CalibrationEngine {
 
     @Override
     public CalibrationOutput runCalibration(Procedure procedure, Settings settings) {
-        var calibrationState = new CalibrationState(procedure.referenceDevice(), procedure.checkedDevice(),
-                procedure.controlPoints(), settings);
+        var calibrationState = new Calibration(settings, procedure.referenceInstrument(), procedure.testedDevice(), procedure.measurementTypes());
         for (Step step : procedure.steps()) {
             step.setState(calibrationState);
             step.setStepInterface(stepInterface);
             step.show();
             step.execute();
         }
-        var controlPointToResults = calibrationState.controlPointToResults();
+        var controlPointToResults = calibrationState.resultsData();
         return new CalibrationOutput(controlPointToResults);
     }
 

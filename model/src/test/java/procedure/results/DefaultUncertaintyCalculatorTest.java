@@ -1,7 +1,8 @@
 package procedure.results;
 
-import device.AccuracyPattern;
+import instrument.AccuracyPattern;
 import org.junit.Test;
+import unit.Prefix;
 
 import java.util.Arrays;
 import java.util.List;
@@ -20,12 +21,12 @@ public class DefaultUncertaintyCalculatorTest {
         var accuracyPattern = new AccuracyPattern(0.005, 4);
         var calculator = new DefaultUncertaintyCalculator(-2, accuracyPattern, 2);
 
-        var results = calculator.calculate(inputs);
+        var results = calculator.calculate(Prefix.NULL, inputs);
 
-        assertEquals(referencedValues, results.inputs().referencedValues());
-        assertEquals(checkedValues, results.inputs().checkedValues());
-        assertEquals(-14.995999999999999, results.meanReferencedValue(), delta);
-        assertEquals(-16.38, results.meanCheckedValue(), delta);
+        assertEquals(referencedValues, results.inputs().referenceValues());
+        assertEquals(checkedValues, results.inputs().testValues());
+        assertEquals(-14.995999999999999, results.meanReferenceValue(), delta);
+        assertEquals(-16.38, results.meanTestValue(), delta);
         assertEquals(1.3840000000000003, results.error(), delta);
         assertEquals(0.0969535971483262, results.uncertaintyA(), delta);
         assertEquals(0.002886751345948129, results.uncertaintyB(), delta);
@@ -44,12 +45,12 @@ public class DefaultUncertaintyCalculatorTest {
         var accuracyPattern = new AccuracyPattern(0.005, 4);
         var calculator = new DefaultUncertaintyCalculator(-2, accuracyPattern, 2);
 
-        var results = calculator.calculate(inputs);
+        var results = calculator.calculate(Prefix.NULL, inputs);
 
-        assertEquals(referencedValues, results.inputs().referencedValues());
-        assertEquals(checkedValues, results.inputs().checkedValues());
-        assertEquals(15.0, results.meanReferencedValue(), delta);
-        assertEquals(15.1, results.meanCheckedValue(), delta);
+        assertEquals(referencedValues, results.inputs().referenceValues());
+        assertEquals(checkedValues, results.inputs().testValues());
+        assertEquals(15.0, results.meanReferenceValue(), delta);
+        assertEquals(15.1, results.meanTestValue(), delta);
         assertEquals(-0.09999999999999964, results.error(), delta);
         assertEquals(0.0, results.uncertaintyA(), delta);
         assertEquals(0.002886751345948129, results.uncertaintyB(), delta);
@@ -69,10 +70,10 @@ public class DefaultUncertaintyCalculatorTest {
         var accuracyPattern = new AccuracyPattern(0, 0);
         var calculator = new DefaultUncertaintyCalculator(0, accuracyPattern, 0);
 
-        var results = calculator.calculate(inputs);
+        var results = calculator.calculate(Prefix.NULL, inputs);
 
-        assertEquals(Double.NaN, results.meanReferencedValue(), delta);
-        assertEquals(Double.NaN, results.meanCheckedValue(), delta);
+        assertEquals(Double.NaN, results.meanReferenceValue(), delta);
+        assertEquals(Double.NaN, results.meanTestValue(), delta);
         assertEquals(Double.NaN, results.error(), delta);
         assertEquals(0.0, results.uncertaintyA(), delta);
         assertEquals(0.2886751345948129, results.uncertaintyB(), delta);

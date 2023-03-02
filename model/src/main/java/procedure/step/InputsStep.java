@@ -1,13 +1,21 @@
 package procedure.step;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import procedure.results.DefaultUncertaintyCalculator;
+import procedure.results.Inputs;
+import procedure.results.Results;
+import unit.ControlPoint;
+import unit.MeasurementType;
+
+import java.util.Arrays;
+
+@Getter
+@AllArgsConstructor
 public class InputsStep extends Step {
     private final String message;
-    private final double controlPoint;
-
-    public InputsStep(String message, double controlPoint) {
-        this.message = message;
-        this.controlPoint = controlPoint;
-    }
+    private final MeasurementType measurementType;
+    private final ControlPoint controlPoint;
 
     @Override
     public void show() {
@@ -16,24 +24,36 @@ public class InputsStep extends Step {
 
     @Override
     public void execute() {
-        var measurementsNumber = state.settings().measurementsNumber();
-        for (int number = 1; number <= measurementsNumber; number++) {
-            addInput();
-        }
+        var inputs = getInputs();
+        var results = calculateResults(inputs);
+        state.addResults(measurementType, controlPoint, results);
     }
 
-    private void addInput() {
-        var referencedInput = stepInterface.getReferencedInput();
-        var checkedInput = stepInterface.getCheckedInput();
-        var results = state.controlPointToInputs().get(controlPoint);
-        results.addReferenceValue(referencedInput);
-        results.addCheckedValue(checkedInput);
-        stepInterface.showMessage(referencedInput + "; " + checkedInput);
+    private Inputs getInputs() {
+        var referenceInput = getReferenceInputs();
+        var testInput = stepInterface.getCheckedInput();
+        return new Inputs(Arrays.asList(referenceInput), Arrays.asList(testInput));
+    }
+
+    private Double[] getReferenceInputs() {
+        return state.settings().referenceValuesFromControlPoint()
+                ? new Double[]{controlPoint.basicValue()}
+                : stepInterface.getReferencedInput();
+    }
+
+    private Results calculateResults(Inputs inputs) {
+        var referenceScope = state.referenceInstrument().getMatchingScope(measurementType, controlPoint);
+        var accuracyPattern = referenceScope.getAccuracyPattern();
+        var testedScope = state.testedDevice().getMatchingScope(measurementType, controlPoint);
+        var accuracy = testedScope.getAccuracy();
+        var resolutionExponent = testedScope.getResolutionExponent();
+        var calculator = new DefaultUncertaintyCalculator(resolutionExponent, accuracyPattern, accuracy);
+        return calculator.calculate(controlPoint.basicPrefix(), inputs);
     }
 
     @Override
     public StepType getStepType() {
-        return StepType.INPUT;
+        return StepType.INPUTS;
     }
 
 

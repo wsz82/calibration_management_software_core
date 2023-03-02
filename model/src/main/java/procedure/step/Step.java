@@ -1,13 +1,17 @@
 package procedure.step;
 
-import procedure.CalibrationState;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import procedure.Calibration;
 import procedure.StepInterface;
 
+@Getter
+@Setter
+@NoArgsConstructor
 public abstract class Step {
-    protected CalibrationState state;
+    protected Calibration state;
     protected StepInterface stepInterface;
-
-    public Step() {}
 
     public abstract void show();
 
@@ -15,11 +19,4 @@ public abstract class Step {
 
     public abstract StepType getStepType();
 
-    public void setState(CalibrationState state) {
-        this.state = state;
-    }
-
-    public void setStepInterface(StepInterface stepInterface) {
-        this.stepInterface = stepInterface;
-    }
 }

@@ -1,10 +1,19 @@
 package procedure;
 
-import device.Device;
+import device.TestedDevice;
+import instrument.ReferenceInstrument;
 import procedure.step.Step;
+import unit.ControlPoint;
+import unit.MeasurementType;
 
 import java.util.List;
+import java.util.Map;
 
-public record Procedure(Device referenceDevice, Device checkedDevice, List<Double> controlPoints, List<Step> steps) {
+public record Procedure(
+        ReferenceInstrument referenceInstrument,
+        TestedDevice testedDevice,
+        Map<MeasurementType, List<ControlPoint>> measurementTypes,
+        List<Step> steps
+) {
 
 }

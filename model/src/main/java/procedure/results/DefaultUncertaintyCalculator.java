@@ -1,6 +1,7 @@
 package procedure.results;
 
-import device.AccuracyPattern;
+import instrument.AccuracyPattern;
+import unit.Prefix;
 
 import java.util.List;
 
@@ -18,25 +19,26 @@ public class DefaultUncertaintyCalculator implements UncertaintyCalculator {
     }
 
     @Override
-    public Results calculate(Inputs inputs) {
-        var referencedValues = inputs.referencedValues();
+    public Results calculate(Prefix prefix, Inputs inputs) {
+        var referencedValues = inputs.referenceValues();
         double meanReferencedValue = mean(referencedValues);
 
-        var checkedValues = inputs.checkedValues();
+        var checkedValues = inputs.testValues();
         double meanCheckedValue = mean(checkedValues);
 
         double error = meanReferencedValue - meanCheckedValue;
 
-        double u1 = uncertaintyA(checkedValues, meanCheckedValue);
-        double u2 = uncertaintyB();
-        double u3 = uncertaintyC(meanReferencedValue);
-        double uncertainty = combinedUncertainty(u1, u2, u3);
+        double uA = uncertaintyA(checkedValues, meanCheckedValue);
+        double uB = uncertaintyB();
+        double uC = uncertaintyC(meanReferencedValue);
+        double uncertainty = combinedUncertainty(uA, uB, uC);
 
+        //todo uzgodnić z Pawłem jak obliczać AL i AU
         double AL = meanReferencedValue - accuracy - uncertainty;
         double AU = meanReferencedValue + accuracy + uncertainty;
 
         var pass = meanCheckedValue >= AL && meanCheckedValue <= AU;
-        return new Results(inputs, meanReferencedValue, meanCheckedValue, error, u1, u2, u3, uncertainty, AL, AU, pass);
+        return new Results(prefix, inputs, meanReferencedValue, meanCheckedValue, error, uA, uB, uC, uncertainty, AL, AU, pass);
     }
 
     private double uncertaintyA(List<Double> checkedValues, double meanCheckedValue) {
