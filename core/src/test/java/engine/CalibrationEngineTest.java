@@ -5,7 +5,7 @@ import procedure.Settings;
 import procedure.StepInterface;
 import procedure.results.CalibrationOutput;
 import sample.SampleData_BC06;
-import sample.SampleData_PP_METEX_3610_INMEL1000;
+import sample.SampleData_PP_METEX_3610;
 
 import java.util.Collections;
 import java.util.List;
@@ -20,10 +20,7 @@ public class CalibrationEngineTest {
 
     @Test
     public void thermometer_calibration_BC06() {
-        var referenceInstrument = SampleData_BC06.thermometerInstrument_P755();
-        var testedDevice = SampleData_BC06.thermometerDevice_BC06();
-        var procedure = SampleData_BC06.procedure(referenceInstrument, testedDevice);
-        var settings = new Settings(5, false);
+        var procedure = SampleData_BC06.procedure();
         var referenceInputs = makeFakeInputs(
                 -15.01, -15.00, -14.98, -14.99, -15.00,
                 20.01, 20.02, 20.00, 19.99, 19.98,
@@ -34,9 +31,11 @@ public class CalibrationEngineTest {
                 20.8, 20.6, 20.9, 20.4, 20.5,
                 49.5, 48.5, 49.3, 48.1, 49.9
         );
-
+        var settings = procedure.getSettings();
         var stepInterface = makeFakeStepInterface(settings, referenceInputs, testInputs);
-        var output = new DefaultCalibrationEngine(stepInterface).runCalibration(procedure, settings);
+        var referenceInstrument = SampleData_BC06.thermometer_P755();
+        var engine = new DefaultCalibrationEngine(stepInterface);
+        var output = engine.runCalibration(procedure, referenceInstrument);
 
         printOutput(output);
         assertTrue(output.isPass());
@@ -44,9 +43,7 @@ public class CalibrationEngineTest {
 
     @Test
     public void multimeter_calibration_PP_METEX_3610_INMEL1000() {
-        var referenceInstrument = SampleData_PP_METEX_3610_INMEL1000.multimeter_INMEL7000();
-        var testedDevice = SampleData_PP_METEX_3610_INMEL1000.multimeter_PP_METEX_3610();
-        var procedure = SampleData_PP_METEX_3610_INMEL1000.procedure(referenceInstrument, testedDevice);
+        var procedure = SampleData_PP_METEX_3610.procedure();
         var testInputs = makeFakeInputs(
                 180.01, -180.01, 20.01, 1.801, -1.801, 0.201, 18.01, -18.01, 10.01, 2.01, -2.01, 180.01, -180.01, 20.01, 900.01, -900.01, 100.01,
                 180.02, 180.02, 1.802, 1.802, 2.02, 10.02, 18.02, 18.02, 180.02, 180.02, 680.02, 750.02, 680.02, 750.02,
@@ -54,10 +51,10 @@ public class CalibrationEngineTest {
                 180.04, 180.04, 1.804, 1.804, 18.04, 18.04, 180.04, 180.04, 1.804, 1.804, 18.04, 18.04,
                 1.05, 190.05, 19.05, 190.05, 1.905, 19.05
         );
-        var settings = new Settings(1, true);
-
+        var settings = procedure.getSettings();
         var stepInterface = makeFakeStepInterface(settings, null, testInputs);
-        var output = new DefaultCalibrationEngine(stepInterface).runCalibration(procedure, settings);
+        var engine = new DefaultCalibrationEngine(stepInterface);
+        var output = engine.runCalibration(procedure, SampleData_PP_METEX_3610.multimeter_INMEL7000());
 
         printOutput(output);
         assertTrue(output.isPass());

@@ -6,6 +6,7 @@ import instrument.AccuracyPattern;
 import instrument.ReferenceInstrument;
 import instrument.ReferenceScope;
 import procedure.Procedure;
+import procedure.Settings;
 import procedure.step.DisplayStep;
 import procedure.step.InputsStep;
 import scope.Scope;
@@ -19,9 +20,10 @@ import java.util.Map;
 
 import static unit.Prefix.*;
 
-public class SampleData_PP_METEX_3610_INMEL1000 {
+public class SampleData_PP_METEX_3610 {
 
-    public static Procedure procedure(ReferenceInstrument referenceInstrument, TestDevice testedDevice) {
+    public static Procedure procedure() {
+        var testedDevice = multimeter_PP_METEX_3610();
         var dcv = dcv();
         var acv = acv();
         var dca = dca();
@@ -102,7 +104,8 @@ public class SampleData_PP_METEX_3610_INMEL1000 {
         var dcaPoints = controlPoints.get(dca);
         var acaPoints = controlPoints.get(aca);
         var resPoints = controlPoints.get(res);
-        return new Procedure(referenceInstrument, testedDevice, controlPoints, Arrays.asList(
+        var settings = new Settings(1, true);
+        return new Procedure(settings, testedDevice, controlPoints, Arrays.asList(
                 new DisplayStep("Podczas kalibracji przyrządu jest używane NAPIĘCIE NIEBEZPIECZNE; Niestosowanie warunków bezpieczeństwa grozi śmiercią lub kalectwem"),
                 new DisplayStep("Sprawdzenie przyrządu należy wykonać w warunkach:; Temperatura powietrza 23 stopni C +/-1 stop, C; Wilgotność względna powietrza do 60%"),
                 new DisplayStep("Wyświetlacz sprawdzaj podczas kalibracji przyrządu"),
