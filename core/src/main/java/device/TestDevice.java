@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 @Data
-public final class TestDevice implements ScopeMatchable<TestScope> {
+public class TestDevice implements ScopeMatchable<TestScope> {
     private final String model;
     private final Map<MeasurementType, List<TestScope>> scopes;
 
