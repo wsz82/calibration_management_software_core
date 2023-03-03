@@ -1,18 +1,15 @@
 package unit;
 
-import java.util.Arrays;
+import lombok.Data;
+
 import java.util.stream.DoubleStream;
 
-public record ControlPoint(
-        Parameter... parameters
-) {
+@Data
+public class ControlPoint {
+    private final Parameter[] parameters;
 
-    public double basicValue() {
-        return parameters[0].value();
-    }
-
-    public Prefix basicPrefix() {
-        return parameters[0].prefix();
+    public ControlPoint(Parameter... parameters) {
+        this.parameters = parameters;
     }
 
     public ControlPoint(double value) {
@@ -23,15 +20,16 @@ public record ControlPoint(
         this(DoubleStream.of(values).mapToObj(Parameter::new).toArray(Parameter[]::new));
     }
 
-    public ControlPoint(Prefix prefix,  double value) {
+    public ControlPoint(Prefix prefix, double value) {
         this(new Parameter(prefix, value));
     }
 
-    @Override
-    public String toString() {
-        return "ControlPoint[" +
-                "parameters=" + Arrays.toString(parameters) +
-                ']';
+    public double basicValue() {
+        return parameters[0].getValue();
+    }
+
+    public Prefix basicPrefix() {
+        return parameters[0].getPrefix();
     }
 
 }

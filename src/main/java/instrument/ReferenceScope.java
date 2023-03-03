@@ -1,15 +1,15 @@
 package instrument;
 
+import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
 import lombok.ToString;
 import scope.MultiScope;
 import scope.Scope;
 import unit.Parameter;
 
+@Data
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
-@Getter
 public class ReferenceScope extends MultiScope {
     private final AccuracyPattern accuracyPattern;
 

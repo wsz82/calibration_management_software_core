@@ -1,12 +1,15 @@
 package scope;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import unit.Parameter;
 import unit.Prefix;
 
-public record Scope(
-        Parameter minimumIncluded,
-        Parameter maximumExcluded
-) implements Comparable<Scope> {
+@Data
+@AllArgsConstructor
+public class Scope implements Comparable<Scope> {
+    private final Parameter minimumIncluded;
+    private final Parameter maximumExcluded;
 
     public Scope(Parameter parameter) {
         this(parameter, parameter);

@@ -16,16 +16,15 @@ public class DefaultCalibrationEngine implements CalibrationEngine {
 
     @Override
     public CalibrationOutput runCalibration(Procedure procedure, Settings settings) {
-        var calibrationState = new Calibration(settings, procedure.referenceInstrument(), procedure.testedDevice(), procedure.measurementTypes());
-        for (Step step : procedure.steps()) {
+        var calibrationState = new Calibration(settings, procedure.getReferenceInstrument(), procedure.getTestDevice(), procedure.getControlPoints());
+        for (Step step : procedure.getSteps()) {
             step.setState(calibrationState);
             step.setStepInterface(stepInterface);
             step.show();
             step.execute();
         }
-        var controlPointToResults = calibrationState.resultsData();
+        var controlPointToResults = calibrationState.getResultsData();
         return new CalibrationOutput(controlPointToResults);
     }
-
 
 }

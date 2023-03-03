@@ -1,14 +1,10 @@
 package procedure.step;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.Data;
 import procedure.Calibration;
 import procedure.StepInterface;
 
-@Getter
-@Setter
-@NoArgsConstructor
+@Data
 public abstract class Step {
     protected Calibration state;
     protected StepInterface stepInterface;

@@ -1,20 +1,20 @@
 package device;
 
+import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
 import lombok.ToString;
 import scope.MultiScope;
 import scope.Scope;
 import unit.Parameter;
 
+@Data
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
-@Getter
-public class TestedScope extends MultiScope {
+public class TestScope extends MultiScope {
     private final double accuracy;
     private final int resolutionExponent;
 
-    public TestedScope(
+    public TestScope(
             double accuracy,
             int resolutionExponent,
             Scope... scopes
@@ -24,7 +24,7 @@ public class TestedScope extends MultiScope {
         this.resolutionExponent = resolutionExponent;
     }
 
-    public TestedScope(double accuracy, int resolutionExponent, double minimumIncluded, double maximumExcluded) {
+    public TestScope(double accuracy, int resolutionExponent, double minimumIncluded, double maximumExcluded) {
         this(accuracy, resolutionExponent, new Scope(new Parameter(minimumIncluded), new Parameter(maximumExcluded)));
     }
 

@@ -1,7 +1,10 @@
 package procedure;
 
-import device.TestedDevice;
+import device.TestDevice;
 import instrument.ReferenceInstrument;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import procedure.results.Results;
 import unit.ControlPoint;
 import unit.MeasurementType;
@@ -10,21 +13,22 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public record Calibration(
-        Settings settings,
-        ReferenceInstrument referenceInstrument,
-        TestedDevice testedDevice,
-        Map<MeasurementType, List<ControlPoint>> controlPointsData,
-        Map<MeasurementType, Map<ControlPoint, Results>> resultsData
-) {
+@Data
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+public final class Calibration {
+    private final Settings settings;
+    private final ReferenceInstrument referenceInstrument;
+    private final TestDevice testDevice;
+    private final Map<MeasurementType, List<ControlPoint>> controlPointsData;
+    private final Map<MeasurementType, Map<ControlPoint, Results>> resultsData;
 
     public Calibration(
             Settings settings,
             ReferenceInstrument referenceInstrument,
-            TestedDevice testedDevice,
+            TestDevice testDevice,
             Map<MeasurementType, List<ControlPoint>> controlPoints
     ) {
-        this(settings, referenceInstrument, testedDevice, controlPoints, new HashMap<>());
+        this(settings, referenceInstrument, testDevice, controlPoints, new HashMap<>());
     }
 
     public void addResults(MeasurementType measurementType, ControlPoint controlPoint, Results results) {

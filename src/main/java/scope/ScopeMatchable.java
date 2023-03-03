@@ -15,7 +15,7 @@ public interface ScopeMatchable<M extends MultiScope> {
         if (accuracyScopes == null) {
             throw new IllegalStateException("No matching scope is defined for: " + measurementType);
         }
-        var parameters = controlPoint.parameters();
+        var parameters = controlPoint.getParameters();
         var matchingScopes = accuracyScopes.stream()
                 .filter(multiScope -> multiScope.isMatch(parameters))
                 .collect(Collectors.toList());

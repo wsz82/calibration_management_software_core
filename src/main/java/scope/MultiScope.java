@@ -1,15 +1,11 @@
 package scope;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.ToString;
+import lombok.Data;
 import unit.Parameter;
 
-@EqualsAndHashCode
-@ToString
-@Getter
+@Data
 public class MultiScope implements Comparable<MultiScope> {
-    protected final Scope[] scopes;
+    private final Scope[] scopes;
 
     public MultiScope(Scope... scopes) {
         this.scopes = scopes;

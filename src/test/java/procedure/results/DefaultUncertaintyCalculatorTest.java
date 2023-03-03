@@ -23,18 +23,18 @@ public class DefaultUncertaintyCalculatorTest {
 
         var results = calculator.calculate(Prefix.NULL, inputs);
 
-        assertEquals(referencedValues, results.inputs().referenceValues());
-        assertEquals(checkedValues, results.inputs().testValues());
-        assertEquals(-14.995999999999999, results.meanReferenceValue(), delta);
-        assertEquals(-16.38, results.meanTestValue(), delta);
-        assertEquals(1.3840000000000003, results.error(), delta);
-        assertEquals(0.0969535971483262, results.uncertaintyA(), delta);
-        assertEquals(0.002886751345948129, results.uncertaintyB(), delta);
-        assertEquals(2.266111353574665, results.uncertaintyC(), delta);
-        assertEquals(4.536372559714792, results.uncertainty(), delta);
-        assertEquals(-21.53237255971479, results.lowerBoundary(), delta);
-        assertEquals(-8.459627440285207, results.upperBoundary(), delta);
-        assertTrue(results.pass());
+        assertEquals(referencedValues, results.getInputs().getReferenceValues());
+        assertEquals(checkedValues, results.getInputs().getTestValues());
+        assertEquals(-14.995999999999999, results.getMeanReferenceValue(), delta);
+        assertEquals(-16.38, results.getMeanTestValue(), delta);
+        assertEquals(1.3840000000000003, results.getError(), delta);
+        assertEquals(0.0969535971483262, results.getUncertaintyA(), delta);
+        assertEquals(0.002886751345948129, results.getUncertaintyB(), delta);
+        assertEquals(2.266111353574665, results.getUncertaintyC(), delta);
+        assertEquals(4.536372559714792, results.getUncertainty(), delta);
+        assertEquals(-21.53237255971479, results.getLowerBoundary(), delta);
+        assertEquals(-8.459627440285207, results.getUpperBoundary(), delta);
+        assertTrue(results.isPass());
     }
 
     @Test
@@ -47,18 +47,18 @@ public class DefaultUncertaintyCalculatorTest {
 
         var results = calculator.calculate(Prefix.NULL, inputs);
 
-        assertEquals(referencedValues, results.inputs().referenceValues());
-        assertEquals(checkedValues, results.inputs().testValues());
-        assertEquals(15.0, results.meanReferenceValue(), delta);
-        assertEquals(15.1, results.meanTestValue(), delta);
-        assertEquals(-0.09999999999999964, results.error(), delta);
-        assertEquals(0.0, results.uncertaintyA(), delta);
-        assertEquals(0.002886751345948129, results.uncertaintyB(), delta);
-        assertEquals(2.352702346947725, results.uncertaintyC(), delta);
-        assertEquals(4.705408235920308, results.uncertainty(), delta);
-        assertEquals(8.29459176407969, results.lowerBoundary(), delta);
-        assertEquals(21.70540823592031, results.upperBoundary(), delta);
-        assertTrue(results.pass());
+        assertEquals(referencedValues, results.getInputs().getReferenceValues());
+        assertEquals(checkedValues, results.getInputs().getTestValues());
+        assertEquals(15.0, results.getMeanReferenceValue(), delta);
+        assertEquals(15.1, results.getMeanTestValue(), delta);
+        assertEquals(-0.09999999999999964, results.getError(), delta);
+        assertEquals(0.0, results.getUncertaintyA(), delta);
+        assertEquals(0.002886751345948129, results.getUncertaintyB(), delta);
+        assertEquals(2.352702346947725, results.getUncertaintyC(), delta);
+        assertEquals(4.705408235920308, results.getUncertainty(), delta);
+        assertEquals(8.29459176407969, results.getLowerBoundary(), delta);
+        assertEquals(21.70540823592031, results.getUpperBoundary(), delta);
+        assertTrue(results.isPass());
     }
 
     @Test
@@ -72,16 +72,16 @@ public class DefaultUncertaintyCalculatorTest {
 
         var results = calculator.calculate(Prefix.NULL, inputs);
 
-        assertEquals(Double.NaN, results.meanReferenceValue(), delta);
-        assertEquals(Double.NaN, results.meanTestValue(), delta);
-        assertEquals(Double.NaN, results.error(), delta);
-        assertEquals(0.0, results.uncertaintyA(), delta);
-        assertEquals(0.2886751345948129, results.uncertaintyB(), delta);
-        assertEquals(Double.NaN, results.uncertaintyC(), delta);
-        assertEquals(Double.NaN, results.uncertainty(), delta);
-        assertEquals(Double.NaN, results.lowerBoundary(), delta);
-        assertEquals(Double.NaN, results.upperBoundary(), delta);
-        assertFalse(results.pass());
+        assertEquals(Double.NaN, results.getMeanReferenceValue(), delta);
+        assertEquals(Double.NaN, results.getMeanTestValue(), delta);
+        assertEquals(Double.NaN, results.getError(), delta);
+        assertEquals(0.0, results.getUncertaintyA(), delta);
+        assertEquals(0.2886751345948129, results.getUncertaintyB(), delta);
+        assertEquals(Double.NaN, results.getUncertaintyC(), delta);
+        assertEquals(Double.NaN, results.getUncertainty(), delta);
+        assertEquals(Double.NaN, results.getLowerBoundary(), delta);
+        assertEquals(Double.NaN, results.getUpperBoundary(), delta);
+        assertFalse(results.isPass());
     }
 
 }

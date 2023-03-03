@@ -1,10 +1,10 @@
 package procedure.step;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
-@Getter
-@AllArgsConstructor
+@Data
+@EqualsAndHashCode(callSuper = true)
 public class DisplayStep extends Step {
     private final String message;
 

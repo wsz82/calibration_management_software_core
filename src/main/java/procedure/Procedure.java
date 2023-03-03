@@ -1,7 +1,8 @@
 package procedure;
 
-import device.TestedDevice;
+import device.TestDevice;
 import instrument.ReferenceInstrument;
+import lombok.Data;
 import procedure.step.Step;
 import unit.ControlPoint;
 import unit.MeasurementType;
@@ -9,11 +10,10 @@ import unit.MeasurementType;
 import java.util.List;
 import java.util.Map;
 
-public record Procedure(
-        ReferenceInstrument referenceInstrument,
-        TestedDevice testedDevice,
-        Map<MeasurementType, List<ControlPoint>> measurementTypes,
-        List<Step> steps
-) {
-
+@Data
+public final class Procedure {
+    private final ReferenceInstrument referenceInstrument;
+    private final TestDevice testDevice;
+    private final Map<MeasurementType, List<ControlPoint>> controlPoints;
+    private final List<Step> steps;
 }

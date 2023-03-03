@@ -1,9 +1,11 @@
 package instrument;
 
-public record AccuracyPattern(
-        double part,
-        double constant
-) {
+import lombok.Data;
+
+@Data
+public class AccuracyPattern {
+    private final double part;
+    private final double constant;
 
     public double calculateAccuracy(double measuredValue) {
         return (part * measuredValue) + constant;

@@ -20,10 +20,10 @@ public class DefaultUncertaintyCalculator implements UncertaintyCalculator {
 
     @Override
     public Results calculate(Prefix prefix, Inputs inputs) {
-        var referencedValues = inputs.referenceValues();
+        var referencedValues = inputs.getReferenceValues();
         double meanReferencedValue = mean(referencedValues);
 
-        var checkedValues = inputs.testValues();
+        var checkedValues = inputs.getTestValues();
         double meanCheckedValue = mean(checkedValues);
 
         double error = meanReferencedValue - meanCheckedValue;

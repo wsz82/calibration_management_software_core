@@ -1,7 +1,7 @@
 package procedure.step;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import procedure.results.DefaultUncertaintyCalculator;
 import procedure.results.Inputs;
 import procedure.results.Results;
@@ -10,8 +10,8 @@ import unit.MeasurementType;
 
 import java.util.Arrays;
 
-@Getter
-@AllArgsConstructor
+@Data
+@EqualsAndHashCode(callSuper = true)
 public class InputsStep extends Step {
     private final String message;
     private final MeasurementType measurementType;
@@ -36,15 +36,15 @@ public class InputsStep extends Step {
     }
 
     private Double[] getReferenceInputs() {
-        return state.settings().referenceValuesFromControlPoint()
+        return state.getSettings().isReferenceValuesFromControlPoint()
                 ? new Double[]{controlPoint.basicValue()}
                 : stepInterface.getReferencedInput();
     }
 
     private Results calculateResults(Inputs inputs) {
-        var referenceScope = state.referenceInstrument().getMatchingScope(measurementType, controlPoint);
+        var referenceScope = state.getReferenceInstrument().getMatchingScope(measurementType, controlPoint);
         var accuracyPattern = referenceScope.getAccuracyPattern();
-        var testedScope = state.testedDevice().getMatchingScope(measurementType, controlPoint);
+        var testedScope = state.getTestDevice().getMatchingScope(measurementType, controlPoint);
         var accuracy = testedScope.getAccuracy();
         var resolutionExponent = testedScope.getResolutionExponent();
         var calculator = new DefaultUncertaintyCalculator(resolutionExponent, accuracyPattern, accuracy);
@@ -55,6 +55,5 @@ public class InputsStep extends Step {
     public StepType getStepType() {
         return StepType.INPUTS;
     }
-
 
 }

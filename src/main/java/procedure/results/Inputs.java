@@ -1,10 +1,12 @@
 package procedure.results;
 
+import lombok.Data;
+
 import java.util.List;
 
-public record Inputs(
-        List<Double> referenceValues,
-        List<Double> testValues
-) {
+@Data
+public class Inputs {
+    private final List<Double> referenceValues;
+    private final List<Double> testValues;
 
 }

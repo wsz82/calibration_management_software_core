@@ -1,19 +1,16 @@
 package unit;
 
-import java.util.Arrays;
+import lombok.Data;
 
-public record MeasurementType(
-        String name,
-        String symbol,
-        String... units
-) {
+@Data
+public class MeasurementType {
+    private final String name;
+    private final String symbol;
+    private final String[] units;
 
-    @Override
-    public String toString() {
-        return "MeasurementType[" +
-                "name='" + name + '\'' +
-                ", symbol='" + symbol + '\'' +
-                ", units=" + Arrays.toString(units) +
-                ']';
+    public MeasurementType(String name, String symbol, String... units) {
+        this.name = name;
+        this.symbol = symbol;
+        this.units = units;
     }
 }
