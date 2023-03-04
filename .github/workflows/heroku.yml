@@ -1,0 +1,35 @@
+name: Heorku Deploy
+
+on:
+  push:
+    branches:
+      - user/wszpikowski/api-module-modularity
+
+jobs:
+  build_core:
+    build:
+      name: My first job
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v3
+        - name: Set up JDK 17
+          uses: actions/setup-java@v3
+          with:
+            java-version: '17'
+            distribution: 'temurin'
+            cache: maven
+        - name: Build with Maven
+          run: mvn -B package --file core/pom.xml
+  deploy_heroku:
+    needs: build_core
+    build:
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v2
+        - uses: akhileshns/heroku-deploy@v3.12.13 # This is the action
+          with:
+            heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+            heroku_app_name: "cms-api" #Must be unique in Heroku
+            heroku_email: "wojteksz82@gmail.com"
+            branch: "user/wszpikowski/api-module-modularity"
+            appdir: "api"
