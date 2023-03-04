@@ -1,8 +1,7 @@
 package spio2023.calibrationmanagementsoftware.api.model.engine;
 
 import org.junit.Test;
-import spio2023.calibrationmanagementsoftware.api.model.procedure.Settings;
-import spio2023.calibrationmanagementsoftware.api.model.procedure.StepInterface;
+import spio2023.calibrationmanagementsoftware.api.model.procedure.TestStepInterface;
 import spio2023.calibrationmanagementsoftware.api.model.procedure.results.CalibrationOutput;
 import spio2023.calibrationmanagementsoftware.api.model.sample.SampleData_BC06;
 import spio2023.calibrationmanagementsoftware.api.model.sample.SampleData_PP_METEX_3610;
@@ -12,7 +11,6 @@ import java.util.List;
 import java.util.Stack;
 import java.util.stream.Collectors;
 import java.util.stream.DoubleStream;
-import java.util.stream.IntStream;
 
 import static org.junit.Assert.assertTrue;
 
@@ -32,7 +30,7 @@ public class CalibrationEngineTest {
                 49.5, 48.5, 49.3, 48.1, 49.9
         );
         var settings = procedure.getSettings();
-        var stepInterface = makeFakeStepInterface(settings, referenceInputs, testInputs);
+        var stepInterface = new TestStepInterface(settings, referenceInputs, testInputs);
         var referenceInstrument = SampleData_BC06.thermometer_P755();
         var engine = new DefaultCalibrationEngine(stepInterface);
         var output = engine.runCalibration(procedure, referenceInstrument);
@@ -52,39 +50,12 @@ public class CalibrationEngineTest {
                 1.05, 190.05, 19.05, 190.05, 1.905, 19.05
         );
         var settings = procedure.getSettings();
-        var stepInterface = makeFakeStepInterface(settings, null, testInputs);
+        var stepInterface = new TestStepInterface(settings, null, testInputs);
         var engine = new DefaultCalibrationEngine(stepInterface);
         var output = engine.runCalibration(procedure, SampleData_PP_METEX_3610.multimeter_INMEL7000());
 
         printOutput(output);
         assertTrue(output.isPass());
-    }
-
-    private StepInterface makeFakeStepInterface(Settings settings, Stack<Double> referenceInputs, Stack<Double> testInputs) {
-        return new StepInterface() {
-            @Override
-            public void showMessage(String message) {
-                System.out.println(message);
-            }
-
-            @Override
-            public Double[] getReferencedInput() {
-                return provideInput(settings.getMeasurementsNumber(), referenceInputs);
-            }
-
-            @Override
-            public Double[] getCheckedInput() {
-                return provideInput(settings.getMeasurementsNumber(), testInputs);
-            }
-
-            private Double[] provideInput(int measurementsNumber, Stack<Double> source) {
-                Double[] input = new Double[measurementsNumber];
-                IntStream.range(0, measurementsNumber).forEach(i -> {
-                    input[i] = source.pop();
-                });
-                return input;
-            }
-        };
     }
 
     private Stack<Double> makeFakeInputs(double... inputs) {

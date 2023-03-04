@@ -28,12 +28,12 @@ public class SampleData_BC06 {
                         new ControlPoint(50)
                 )
         );
-        var settings = new Settings(5, false);
+        var settings = new Settings(1, false);
         var temperaturePoints = controlPoints.get(temperature);
         return new Procedure(settings, testedDevice, controlPoints, Arrays.asList(
                 new DisplayStep("Kalibracja termometru rtęciowego"),
                 new DisplayStep("Włącz komorę klimatyczną i ustaw temperaturę na -15"),
-                new DisplayStep("Zmierz naprzemiennie temperaturę termometrem wzorcowym oraz kalibrowanym"),
+                new DisplayStep("Wprowadź 1 pomiar termometrem wzorcowym a następnie 1 pomiar termometrem kalibrowanym"),
                 new InputsStep("Wprowadź pomiary: ", temperature, temperaturePoints.get(0)),
                 new DisplayStep("Ustaw temperaturę na 20"),
                 new InputsStep("Wprowadź pomiary: ", temperature, temperaturePoints.get(1)),

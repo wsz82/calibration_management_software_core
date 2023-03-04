@@ -21,6 +21,10 @@ public class ControlPointToInputsWithResults extends BaseEntity {
 
     @OneToOne(cascade = CascadeType.ALL)
     @MapsId
+    private Calibration calibration;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @MapsId
     private ControlPoint controlPoint;
 
     @OneToOne(cascade = CascadeType.ALL)
