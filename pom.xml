@@ -23,13 +23,6 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>spio2023.calibration-management-software</groupId>
-			<artifactId>core</artifactId>
-			<version>1.0-SNAPSHOT</version>
-		</dependency>
-
-
-		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>

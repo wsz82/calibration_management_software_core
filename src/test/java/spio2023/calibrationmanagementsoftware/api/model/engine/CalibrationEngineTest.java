@@ -1,11 +1,11 @@
 package spio2023.calibrationmanagementsoftware.api.model.engine;
 
 import org.junit.Test;
-import procedure.Settings;
-import procedure.StepInterface;
-import procedure.results.CalibrationOutput;
-import sample.SampleData_BC06;
-import sample.SampleData_PP_METEX_3610;
+import spio2023.calibrationmanagementsoftware.api.model.procedure.Settings;
+import spio2023.calibrationmanagementsoftware.api.model.procedure.StepInterface;
+import spio2023.calibrationmanagementsoftware.api.model.procedure.results.CalibrationOutput;
+import spio2023.calibrationmanagementsoftware.api.model.sample.SampleData_BC06;
+import spio2023.calibrationmanagementsoftware.api.model.sample.SampleData_PP_METEX_3610;
 
 import java.util.Collections;
 import java.util.List;

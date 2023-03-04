@@ -1,14 +1,14 @@
 package spio2023.calibrationmanagementsoftware.api.model.results;
 
-import instrument.AccuracyPattern;
 import org.junit.Test;
-import unit.Prefix;
+import spio2023.calibrationmanagementsoftware.api.model.procedure.results.DefaultUncertaintyCalculator;
+import spio2023.calibrationmanagementsoftware.api.model.procedure.results.Inputs;
+import spio2023.calibrationmanagementsoftware.api.model.unit.Prefix;
 
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class DefaultUncertaintyCalculatorTest {
 
@@ -19,7 +19,7 @@ public class DefaultUncertaintyCalculatorTest {
         var referencedValues = Arrays.asList(-15.01, -15.00, -14.98, -14.99, -15.00);
         var checkedValues = Arrays.asList(-16.4, -16.1, -16.7, -16.4, -16.3);
         var inputs = new Inputs(referencedValues, checkedValues);
-        var accuracyPattern = new AccuracyPattern(0.005, 4);
+        var accuracyPattern = new spio2023.calibrationmanagementsoftware.api.model.instrument.AccuracyPattern(0.005, 4);
         var calculator = new DefaultUncertaintyCalculator(-2, accuracyPattern, 2);
 
         var results = calculator.calculate(Prefix.NULL, inputs);
@@ -43,7 +43,7 @@ public class DefaultUncertaintyCalculatorTest {
         var referencedValues = List.of(15.00);
         var checkedValues = List.of(15.1);
         var inputs = new Inputs(referencedValues, checkedValues);
-        var accuracyPattern = new AccuracyPattern(0.005, 4);
+        var accuracyPattern = new spio2023.calibrationmanagementsoftware.api.model.instrument.AccuracyPattern(0.005, 4);
         var calculator = new DefaultUncertaintyCalculator(-2, accuracyPattern, 2);
 
         var results = calculator.calculate(Prefix.NULL, inputs);
@@ -68,7 +68,7 @@ public class DefaultUncertaintyCalculatorTest {
                 List.of(),
                 List.of()
         );
-        var accuracyPattern = new AccuracyPattern(0, 0);
+        var accuracyPattern = new spio2023.calibrationmanagementsoftware.api.model.instrument.AccuracyPattern(0, 0);
         var calculator = new DefaultUncertaintyCalculator(0, accuracyPattern, 0);
 
         var results = calculator.calculate(Prefix.NULL, inputs);
