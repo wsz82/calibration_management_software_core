@@ -1,0 +1,22 @@
+name: Publish package to GitHub Packages
+on:
+  push:
+    branches:
+      - "master"
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+      - uses: s4u/maven-settings-action@v2.8.0
+        with:
+          servers: '[{"id": "github-cms", "username": "wsz82", "password": "${{ secrets.CMS_TOKEN }}"}]'
+      - name: Publish package
+        run: mvn --batch-mode deploy

@@ -9,6 +9,19 @@
 	<name>core</name>
 	<description>Calibration Management Software</description>
 
+	<distributionManagement>
+		<repository>
+			<id>github-cms</id>
+			<name>github-cms-release</name>
+			<url>https://maven.pkg.github.com/wsz82/calibration_management_software</url>
+		</repository>
+		<snapshotRepository>
+			<id>github-cms</id>
+			<name>github-cms-snapshot</name>
+			<url>https://maven.pkg.github.com/wsz82/calibration_management_software</url>
+		</snapshotRepository>
+	</distributionManagement>
+
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>17</java.version>
