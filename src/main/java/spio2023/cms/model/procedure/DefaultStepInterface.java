@@ -1,14 +1,17 @@
 package spio2023.cms.model.procedure;
 
 import java.util.Stack;
+import java.util.function.Consumer;
 import java.util.stream.IntStream;
 
 public class DefaultStepInterface implements StepInterface {
+    private final Consumer<String> writer;
     private final Setting setting;
     private final Stack<Double> referenceInputs;
     private final Stack<Double> testInputs;
 
-    public DefaultStepInterface(Setting setting, Stack<Double> referenceInputs, Stack<Double> testInputs) {
+    public DefaultStepInterface(Consumer<String> writer, Setting setting, Stack<Double> referenceInputs, Stack<Double> testInputs) {
+        this.writer = writer;
         this.setting = setting;
         this.referenceInputs = referenceInputs;
         this.testInputs = testInputs;
@@ -16,7 +19,7 @@ public class DefaultStepInterface implements StepInterface {
 
     @Override
     public void showMessage(String message) {
-        System.out.println(message);
+        writer.accept(message);
     }
 
     @Override

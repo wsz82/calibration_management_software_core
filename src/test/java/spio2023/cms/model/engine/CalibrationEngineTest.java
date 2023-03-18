@@ -1,6 +1,7 @@
 package spio2023.cms.model.engine;
 
 import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
 import spio2023.cms.model.procedure.DefaultStepInterface;
 import spio2023.cms.model.procedure.result.CalibrationOutput;
 import spio2023.cms.model.sample.SampleData_BC06;
@@ -16,8 +17,16 @@ import static org.junit.Assert.assertTrue;
 
 public class CalibrationEngineTest {
 
+    private CalibrationLogger logger;
+
+    @AfterEach
+    public void closeOutputFile() {
+        logger.close();
+    }
+
     @Test
     public void thermometer_calibration_BC06() {
+        logger = new CalibrationLogger("BC06");
         var procedure = SampleData_BC06.procedure();
         var referenceInputs = makeFakeInputs(
                 -15.01, -15.00, -14.98, -14.99, -15.00,
@@ -30,7 +39,7 @@ public class CalibrationEngineTest {
                 49.5, 48.5, 49.3, 48.1, 49.9
         );
         var settings = procedure.getSetting();
-        var stepInterface = new DefaultStepInterface(settings, referenceInputs, testInputs);
+        var stepInterface = new DefaultStepInterface(logger::log, settings, referenceInputs, testInputs);
         var referenceInstrument = SampleData_BC06.thermometer_P755();
         var engine = new DefaultCalibrationEngine(stepInterface);
         var output = engine.runCalibration(procedure, referenceInstrument);
@@ -41,6 +50,7 @@ public class CalibrationEngineTest {
 
     @Test
     public void multimeter_calibration_PP_METEX_3610_INMEL1000() {
+        logger = new CalibrationLogger("PP_METEX_3610");
         var procedure = SampleData_PP_METEX_3610.procedure();
         var testInputs = makeFakeInputs(
                 180.01, -180.01, 20.01, 1.801, -1.801, 0.201, 18.01, -18.01, 10.01, 2.01, -2.01, 180.01, -180.01, 20.01, 900.01, -900.01, 100.01,
@@ -50,7 +60,7 @@ public class CalibrationEngineTest {
                 1.05, 190.05, 19.05, 190.05, 1.905, 19.05
         );
         var settings = procedure.getSetting();
-        var stepInterface = new DefaultStepInterface(settings, null, testInputs);
+        var stepInterface = new DefaultStepInterface(logger::log, settings, null, testInputs);
         var engine = new DefaultCalibrationEngine(stepInterface);
         var output = engine.runCalibration(procedure, SampleData_PP_METEX_3610.multimeter_INMEL7000());
 
@@ -71,9 +81,9 @@ public class CalibrationEngineTest {
     private void printOutput(CalibrationOutput output) {
         var controlPointToResults = output.getControlPointToResults();
         controlPointToResults.forEach((controlPoint, results) -> {
-            System.out.println("---");
-            System.out.println(controlPoint);
-            System.out.println(results);
+            logger.log("---");
+            logger.log(controlPoint);
+            logger.log(results);
         });
     }
 
