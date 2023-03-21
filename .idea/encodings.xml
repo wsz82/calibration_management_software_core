@@ -4,9 +4,9 @@
     <file url="file://$PROJECT_DIR$/.gitignore" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/resources" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/test/java/spio2023/cms/model/engine/CalibrationEngineTest.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/test/java/spio2023/cms/model/engine/CalibrationLogger.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/test/java/spio2023/cms/model/procedure/result/DefaultUncertaintyCalculatorTest.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/test/java/spio2023/cms/core/engine/CalibrationEngineTest.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/test/java/spio2023/cms/core/engine/CalibrationLogger.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/test/java/spio2023/cms/core/procedure/result/DefaultUncertaintyCalculatorTest.java" charset="UTF-8" />
     <file url="PROJECT" charset="UTF-8" />
   </component>
 </project>
