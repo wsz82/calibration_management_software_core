@@ -15,5 +15,8 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
+      - uses: s4u/maven-settings-action@v2.8.0
+        with:
+          servers: '[{"id": "github-cms", "username": "wsz82", "password": "${{ secrets.CMS_WRITE }}"}]'
       - name: Publish package
         run: mvn --batch-mode deploy
