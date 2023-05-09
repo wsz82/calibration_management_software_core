@@ -19,7 +19,6 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="core" target="17" />
       <module name="web" target="17" />
     </bytecodeTargetLevel>
   </component>
