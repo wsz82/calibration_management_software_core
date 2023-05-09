@@ -13,12 +13,12 @@
 		<repository>
 			<id>github-cms</id>
 			<name>github-cms-release</name>
-			<url>https://maven.pkg.github.com/wsz82/calibration_management_software</url>
+			<url>https://maven.pkg.github.com/wsz82/calibration_management_software_core</url>
 		</repository>
 		<snapshotRepository>
 			<id>github-cms</id>
 			<name>github-cms-snapshot</name>
-			<url>https://maven.pkg.github.com/wsz82/calibration_management_software</url>
+			<url>https://maven.pkg.github.com/wsz82/calibration_management_software_core</url>
 		</snapshotRepository>
 	</distributionManagement>
 
