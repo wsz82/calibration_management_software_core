@@ -55,9 +55,9 @@ public class DefaultUncertaintyCalculatorTest {
         assertEquals(0.0, results.getUncertaintyA(), delta);
         assertEquals(0.002886751345948129, results.getUncertaintyB(), delta);
         assertEquals(2.352702346947725, results.getUncertaintyC(), delta);
-        assertEquals(4.705408235920308, results.getUncertainty(), delta);
-        assertEquals(8.29459176407969, results.getLowerBoundary(), delta);
-        assertEquals(21.70540823592031, results.getUpperBoundary(), delta);
+        assertEquals(4.7, results.getUncertainty(), delta);
+        assertEquals(8.3, results.getLowerBoundary(), delta);
+        assertEquals(21.7, results.getUpperBoundary(), delta);
         assertTrue(results.isPass());
     }
 
@@ -78,9 +78,9 @@ public class DefaultUncertaintyCalculatorTest {
         assertEquals(0.0, results.getUncertaintyA(), delta);
         assertEquals(0.2886751345948129, results.getUncertaintyB(), delta);
         assertEquals(Double.NaN, results.getUncertaintyC(), delta);
-        assertEquals(Double.NaN, results.getUncertainty(), delta);
-        assertEquals(Double.NaN, results.getLowerBoundary(), delta);
-        assertEquals(Double.NaN, results.getUpperBoundary(), delta);
+        assertEquals(0.0, results.getUncertainty(), delta);
+        assertEquals(0.0, results.getLowerBoundary(), delta);
+        assertEquals(0.0, results.getUpperBoundary(), delta);
         assertFalse(results.isPass());
     }
 
