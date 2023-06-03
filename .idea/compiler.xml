@@ -16,9 +16,12 @@
           <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.26/lombok-1.18.26.jar" />
         </processorPath>
         <module name="core" />
+        <module name="calibration_management_software" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="model" target="17" />
+      <module name="view-javafx" target="17" />
       <module name="web" target="17" />
     </bytecodeTargetLevel>
   </component>

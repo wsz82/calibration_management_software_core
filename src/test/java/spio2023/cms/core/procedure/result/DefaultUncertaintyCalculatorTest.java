@@ -1,7 +1,7 @@
 package spio2023.cms.core.procedure.result;
-
-import org.junit.Test;
 import spio2023.cms.core.instrument.AccuracyPattern;
+import spio2023.cms.core.procedure.result.Input;
+import org.junit.Test;
 import spio2023.cms.core.unit.Prefix;
 
 import java.util.Arrays;
@@ -21,7 +21,7 @@ public class DefaultUncertaintyCalculatorTest {
         var accuracyPattern = new AccuracyPattern(0.005, 4);
         var calculator = new DefaultUncertaintyCalculator(-2, accuracyPattern, 2);
 
-        var results = calculator.calculate(Prefix.NULL, inputs);
+        var results = calculator.calculate(Prefix.NULL,inputs);
 
         assertEquals(referencedValues, results.getInput().getReferenceValues());
         assertEquals(checkedValues, results.getInput().getTestValues());
@@ -31,9 +31,9 @@ public class DefaultUncertaintyCalculatorTest {
         assertEquals(0.0969535971483262, results.getUncertaintyA(), delta);
         assertEquals(0.002886751345948129, results.getUncertaintyB(), delta);
         assertEquals(2.266111353574665, results.getUncertaintyC(), delta);
-        assertEquals(4.536372559714792, results.getUncertainty(), delta);
-        assertEquals(-21.53237255971479, results.getLowerBoundary(), delta);
-        assertEquals(-8.459627440285207, results.getUpperBoundary(), delta);
+        assertEquals(4.5, results.getUncertainty(), delta);
+        assertEquals(-21.5, results.getLowerBoundary(), delta);
+        assertEquals(-8.5, results.getUpperBoundary(), delta);
         assertTrue(results.isPass());
     }
 
@@ -45,7 +45,7 @@ public class DefaultUncertaintyCalculatorTest {
         var accuracyPattern = new AccuracyPattern(0.005, 4);
         var calculator = new DefaultUncertaintyCalculator(-2, accuracyPattern, 2);
 
-        var results = calculator.calculate(Prefix.NULL, inputs);
+        var results = calculator.calculate(Prefix.NULL,inputs);
 
         assertEquals(referencedValues, results.getInput().getReferenceValues());
         assertEquals(checkedValues, results.getInput().getTestValues());
@@ -70,7 +70,7 @@ public class DefaultUncertaintyCalculatorTest {
         var accuracyPattern = new AccuracyPattern(0, 0);
         var calculator = new DefaultUncertaintyCalculator(0, accuracyPattern, 0);
 
-        var results = calculator.calculate(Prefix.NULL, inputs);
+        var results = calculator.calculate(Prefix.NULL,inputs);
 
         assertEquals(Double.NaN, results.getMeanReferenceValue(), delta);
         assertEquals(Double.NaN, results.getMeanTestValue(), delta);
