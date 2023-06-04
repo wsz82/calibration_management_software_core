@@ -13,6 +13,7 @@ import java.util.Stack;
 import java.util.stream.Collectors;
 import java.util.stream.DoubleStream;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class CalibrationEngineTest {
@@ -64,7 +65,7 @@ public class CalibrationEngineTest {
         var output = engine.runCalibration(procedure);
 
         printOutput(output);
-        assertTrue(output.isPass());
+        assertFalse(output.isPass());
     }
 
     private Stack<Double> makeFakeInputs(double... inputs) {

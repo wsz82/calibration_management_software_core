@@ -11,21 +11,27 @@ import spio2023.cms.core.unit.Parameter;
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
 public class TestScope extends MultiScope {
-    private final double accuracy;
+    private final double part;
     private final int resolutionExponent;
+    private final int digits;
+    private final Double overrideAccuracy;
 
     public TestScope(
-            double accuracy,
+            Double overrideAccuracy,
+            double part,
             int resolutionExponent,
+            int digits,
             Scope... scopes
     ) {
         super(scopes);
-        this.accuracy = accuracy;
+        this.overrideAccuracy = overrideAccuracy;
+        this.part = part;
         this.resolutionExponent = resolutionExponent;
+        this.digits = digits;
     }
 
-    public TestScope(double accuracy, int resolutionExponent, double minimumIncluded, double maximumExcluded) {
-        this(accuracy, resolutionExponent, new Scope(new Parameter(minimumIncluded), new Parameter(maximumExcluded)));
+    public TestScope(Double overrideAccuracy, double part, int resolutionExponent, int digits, double minimumIncluded, double maximumExcluded) {
+        this(null, part, resolutionExponent, digits, new Scope(new Parameter(minimumIncluded), new Parameter(maximumExcluded)));
     }
 
 }
