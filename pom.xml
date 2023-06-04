@@ -5,7 +5,7 @@
 
 	<groupId>spio2023.cms</groupId>
 	<artifactId>core</artifactId>
-	<version>1.0.1-SNAPSHOT</version>
+	<version>1.0.2-SNAPSHOT</version>
 	<name>core</name>
 	<description>Calibration Management Software</description>
 
