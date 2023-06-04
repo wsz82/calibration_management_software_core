@@ -45,9 +45,11 @@ public class InputStep extends Step {
         var referenceScope = state.getReferenceInstrument().getMatchingScope(measurementType, controlPoint);
         var accuracyPattern = referenceScope.getAccuracyPattern();
         var testedScope = state.getTestDevice().getMatchingScope(measurementType, controlPoint);
-        var accuracy = testedScope.getAccuracy();
+        var part = testedScope.getPart();
         var resolutionExponent = testedScope.getResolutionExponent();
-        var calculator = new DefaultUncertaintyCalculator(resolutionExponent, accuracyPattern, accuracy);
+        var digits = testedScope.getDigits();
+        var overrideAccuracy = testedScope.getOverrideAccuracy();
+        var calculator = new DefaultUncertaintyCalculator(overrideAccuracy, part, resolutionExponent, digits, accuracyPattern);
         return calculator.calculate(controlPoint.basicPrefix(), input);
     }
 

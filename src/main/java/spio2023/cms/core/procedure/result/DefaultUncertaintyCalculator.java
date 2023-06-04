@@ -11,14 +11,18 @@ import java.util.List;
 public class DefaultUncertaintyCalculator implements UncertaintyCalculator {
 
     private static final double UNCERTAINTY_COVARIANT = 2;
+    private final Double overrideAccuracy;
+    private final double part;
     private final int resolutionExponent;
+    private final double digits;
     private final AccuracyPattern accuracyPattern;
-    private final double accuracy;
 
-    public DefaultUncertaintyCalculator(int resolutionExponent, AccuracyPattern accuracyPattern, double accuracy) {
+    public DefaultUncertaintyCalculator(Double overrideAccuracy, double part, int resolutionExponent, double digits, AccuracyPattern instrumentAccuracyPattern) {
+        this.overrideAccuracy = overrideAccuracy;
+        this.part = part;
         this.resolutionExponent = resolutionExponent;
-        this.accuracyPattern = accuracyPattern;
-        this.accuracy = accuracy;
+        this.digits = digits;
+        this.accuracyPattern = instrumentAccuracyPattern;
     }
 
     @Override
@@ -37,12 +41,20 @@ public class DefaultUncertaintyCalculator implements UncertaintyCalculator {
         double uncertainty = round(combinedUncertainty(uA, uB, uC));
         int scale = scale(uncertainty);
 
-        //todo uzgodnić z Pawłem jak obliczać AL i AU
+        var accuracy = calculateDeviceAccuracy(meanCheckedValue);
         double AL = roundToScale((meanReferencedValue - accuracy - uncertainty), scale);
         double AU = roundToScale((meanReferencedValue + accuracy + uncertainty), scale);
 
         var pass = meanCheckedValue >= AL && meanCheckedValue <= AU;
         return new Result(prefix, input, meanReferencedValue, meanCheckedValue, error, uA, uB, uC, uncertainty, AL, AU, pass);
+    }
+
+    public double calculateDeviceAccuracy(double measuredValue) {
+        if (overrideAccuracy == null) {
+            return (measuredValue * part) + (Math.pow(10, resolutionExponent) * digits);
+        } else {
+            return overrideAccuracy;
+        }
     }
 
     private double uncertaintyA(List<Double> checkedValues, double meanCheckedValue) {

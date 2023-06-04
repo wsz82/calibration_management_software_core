@@ -267,45 +267,45 @@ public class SampleData_PP_METEX_3610 {
         var dca = dca();
         var aca = aca();
         var res = res();
-        var fakeAccuracy = 1;
-        //todo find accuracies for scopes
+        var fakePart = 0.003;
+        //todo part from table
         var scopes = Map.of(
                 dcv, List.of(
-                        new TestScope(fakeAccuracy, -1, new Scope(Prefix.MILLI, -180, Prefix.MILLI, 181)),
-                        new TestScope(fakeAccuracy, -3, new Scope(-1.8, 1.81)),
-                        new TestScope(fakeAccuracy, -2, new Scope(-18, 18.1)),
-                        new TestScope(fakeAccuracy, -1, new Scope(-180, 181)),
-                        new TestScope(fakeAccuracy, 0, new Scope(-900, 901))
+                        new TestScope(null, fakePart, -1, 0, new Scope(Prefix.MILLI, -180, Prefix.MILLI, 181)),
+                        new TestScope(null, fakePart, -3, 0, new Scope(-1.8, 1.81)),
+                        new TestScope(null, fakePart, -2, 0, new Scope(-18, 18.1)),
+                        new TestScope(null, fakePart, -1, 0, new Scope(-180, 181)),
+                        new TestScope(null, fakePart, 0, 0, new Scope(-900, 901))
                 ),
                 acv, List.of(
-                        new TestScope(fakeAccuracy, -1, new Scope(Prefix.MILLI, 180), new Scope(60, 401)),
-                        new TestScope(fakeAccuracy, -3, new Scope(1.8), new Scope(60, 401)),
-                        new TestScope(fakeAccuracy, -2, new Scope(2, 18.1), new Scope(60, 401)),
-                        new TestScope(fakeAccuracy, -1, new Scope(180), new Scope(60, 401)),
-                        new TestScope(fakeAccuracy, 0, new Scope(680, 751), new Scope(60, 401))
+                        new TestScope(null, fakePart, -1, 0, new Scope(Prefix.MILLI, 180), new Scope(60, 401)),
+                        new TestScope(null, fakePart, -3, 0, new Scope(1.8), new Scope(60, 401)),
+                        new TestScope(null, fakePart, -2, 0, new Scope(2, 18.1), new Scope(60, 401)),
+                        new TestScope(null, fakePart, -1, 0, new Scope(180), new Scope(60, 401)),
+                        new TestScope(null, fakePart, 0, 0, new Scope(680, 751), new Scope(60, 401))
                 ),
                 dca, List.of(
-                        new TestScope(fakeAccuracy, -1, new Scope(Prefix.MICRO, 180)),
-                        new TestScope(fakeAccuracy, -3, new Scope(Prefix.MILLI, 1.8)),
-                        new TestScope(fakeAccuracy, -2, new Scope(Prefix.MILLI, 18)),
-                        new TestScope(fakeAccuracy, -1, new Scope(Prefix.MILLI, 180)),
-                        new TestScope(fakeAccuracy, -3, new Scope(1, 1.81)),
-                        new TestScope(fakeAccuracy, -2, new Scope(10, 18.1))
+                        new TestScope(null, fakePart, -1, 0, new Scope(Prefix.MICRO, 180)),
+                        new TestScope(null, fakePart, -3, 0, new Scope(Prefix.MILLI, 1.8)),
+                        new TestScope(null, fakePart, -2, 0, new Scope(Prefix.MILLI, 18)),
+                        new TestScope(null, fakePart, -1, 0, new Scope(Prefix.MILLI, 180)),
+                        new TestScope(null, fakePart, -3, 0, new Scope(1, 1.81)),
+                        new TestScope(null, fakePart, -2, 0, new Scope(10, 18.1))
                 ),
                 aca, List.of(
-                        new TestScope(fakeAccuracy, -1, new Scope(Prefix.MICRO, 180), new Scope(60, 401)),
-                        new TestScope(fakeAccuracy, -3, new Scope(Prefix.MILLI, 1.8), new Scope(60, 401)),
-                        new TestScope(fakeAccuracy, -2, new Scope(Prefix.MILLI, 18), new Scope(60, 401)),
-                        new TestScope(fakeAccuracy, -1, new Scope(Prefix.MILLI, 180), new Scope(60, 401)),
-                        new TestScope(fakeAccuracy, -3, new Scope(1.8), new Scope(60, 401)),
-                        new TestScope(fakeAccuracy, -2, new Scope(18), new Scope(60, 401))
+                        new TestScope(null, fakePart, -1, 0, new Scope(Prefix.MICRO, 180), new Scope(60, 401)),
+                        new TestScope(null, fakePart, -3, 0, new Scope(Prefix.MILLI, 1.8), new Scope(60, 401)),
+                        new TestScope(null, fakePart, -2, 0, new Scope(Prefix.MILLI, 18), new Scope(60, 401)),
+                        new TestScope(null, fakePart, -1, 0, new Scope(Prefix.MILLI, 180), new Scope(60, 401)),
+                        new TestScope(null, fakePart, -3, 0, new Scope(1.8), new Scope(60, 401)),
+                        new TestScope(null, fakePart, -2, 0, new Scope(18), new Scope(60, 401))
                 ),
                 res, List.of(
-                        new TestScope(fakeAccuracy, -1, new Scope(1, 191)),
-                        new TestScope(fakeAccuracy, -2, new Scope(Prefix.KILO, 19)),
-                        new TestScope(fakeAccuracy, -1, new Scope(Prefix.KILO, 190)),
-                        new TestScope(fakeAccuracy, -3, new Scope(Prefix.MEGA, 1.9)),
-                        new TestScope(fakeAccuracy, -2, new Scope(Prefix.MEGA, 19))
+                        new TestScope(null, fakePart, -1, 0, new Scope(1, 191)),
+                        new TestScope(null, fakePart, -2, 0, new Scope(Prefix.KILO, 19)),
+                        new TestScope(null, fakePart, -1, 0, new Scope(Prefix.KILO, 190)),
+                        new TestScope(null, fakePart, -3, 0, new Scope(Prefix.MEGA, 1.9)),
+                        new TestScope(null, fakePart, -2, 0, new Scope(Prefix.MEGA, 19))
                 )
         );
         return new TestDevice("PP METEX 3610", scopes);
